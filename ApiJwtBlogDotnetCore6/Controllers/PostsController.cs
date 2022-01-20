@@ -22,8 +22,15 @@ namespace ApiJwtBlogDotnetCore6.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            List<Posts> posts = await applicationDbContext.Posts.Select(x=>new Posts { Id=x.Id,Titulo=x.Titulo,Descricao=x.Descricao,DataCadastro = x.DataCadastro }).ToListAsync();
-            return Content(JsonConvert.SerializeObject(posts));
+            try
+            {
+                List<Posts> posts = await applicationDbContext.Posts.Select(x => new Posts { Id = x.Id, Titulo = x.Titulo, Descricao = x.Descricao, DataCadastro = x.DataCadastro }).ToListAsync();
+                return Content(JsonConvert.SerializeObject(posts));
+            }
+            catch (Exception ex) {
+                return BadRequest(ex);
+            }
+                
         }
 
         [AllowAnonymous]
@@ -31,8 +38,15 @@ namespace ApiJwtBlogDotnetCore6.Controllers
         [Route("Details/{id}")]
         public async Task<ActionResult> Details([FromRoute]int id)
         {
-            var post = await applicationDbContext.Posts.FirstOrDefaultAsync(x=>x.Id == id);
-            return Content(JsonConvert.SerializeObject(post));
+            try
+            {
+                var post = await applicationDbContext.Posts.FirstOrDefaultAsync(x => x.Id == id);
+                return Content(JsonConvert.SerializeObject(post));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
         }
 
         [HttpPost]
@@ -44,9 +58,9 @@ namespace ApiJwtBlogDotnetCore6.Controllers
                 applicationDbContext.SaveChanges();
                 return Ok(JsonConvert.SerializeObject(posts));
             }
-            catch
+            catch(Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex);
             }
         }
 
@@ -59,9 +73,9 @@ namespace ApiJwtBlogDotnetCore6.Controllers
                 applicationDbContext.SaveChanges();
                 return Ok(JsonConvert.SerializeObject(posts));
             }
-            catch
+            catch(Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex);
             }
         }
 
