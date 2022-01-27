@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using System.Linq;
 
 namespace ApiJwtBlogDotnetCore6.Controllers
 {
@@ -22,6 +23,20 @@ namespace ApiJwtBlogDotnetCore6.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+
+            //var query = from p in applicationDbContext.Posts select new  {p.Id, p.Titulo, p.Descricao, p.DataCadastroFormatada};
+            //var query = from p in applicationDbContext.Posts where p.Id == 8 select p;
+            //var query = from p in applicationDbContext.Posts select p;
+
+            /*
+            var query = from p in applicationDbContext.Posts join 
+                        c in applicationDbContext.Comentarios on p.Id equals c.postid
+                        where p.Id == 8 select new { p.Id, p.Titulo, p.Descricao, p.DataCadastroFormatada, c.Id,c.Titulo,c.Descricao };
+            */
+            var query = applicationDbContext.Posts.FromSqlRaw("select * from posts").ToList();
+
+            return Content(JsonConvert.SerializeObject(query));
+            /*
             try
             {
                 List<Posts> posts = await applicationDbContext.Posts.Select(x => new Posts { Id = x.Id, Titulo = x.Titulo, Descricao = x.Descricao, DataCadastro = x.DataCadastro }).ToListAsync();
@@ -29,8 +44,9 @@ namespace ApiJwtBlogDotnetCore6.Controllers
             }
             catch (Exception ex) {
                 return BadRequest(ex);
-            }
-                
+            }*/
+
+
         }
 
         [AllowAnonymous]
@@ -54,13 +70,43 @@ namespace ApiJwtBlogDotnetCore6.Controllers
         {
             try
             {
+                /*
+                if (!ModelState.IsValid)
+                {
+                    var listaError = new List<String>();
+                    var listax = ModelState.Values.Select(x => x.Errors).ToList();
+                    foreach (var erros in listax) {
+                        foreach( var item in erros)
+                        {
+                            listaError.Add(item.ErrorMessage);
+                        }
+                        
+                    }
+                    throw new Exception(String.Join(",", listaError));
+                }*/
                 applicationDbContext.Posts.Add(posts);
                 applicationDbContext.SaveChanges();
-                return Ok(JsonConvert.SerializeObject(posts));
+
+                var retorno = new {
+                    success = true,
+                    message = "cadastrado com sucesso",
+                    post = posts
+                };
+
+                return Ok(JsonConvert.SerializeObject(retorno));
+
+                
+
             }
             catch(Exception ex)
             {
-                return BadRequest(ex);
+                var retorno = new
+                {
+                    success = false,
+                    message = ex
+                };
+
+                return BadRequest(retorno);
             }
         }
 
