@@ -33,6 +33,8 @@ if (app.Environment.IsProduction())
     app.UseSwaggerUI();
 }
 
+app.UseStaticFiles();
+
 app.UseHttpsRedirection();
 
 app.UseAuthentication();

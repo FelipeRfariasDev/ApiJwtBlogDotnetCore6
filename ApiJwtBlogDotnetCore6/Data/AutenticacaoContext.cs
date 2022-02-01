@@ -35,6 +35,11 @@ namespace ApiJwtBlogDotnetCore6.Data
                 });
             }
         }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.Entity<Posts>().Ignore(x=>x.Imagem);
+        }
 
     }
 }

@@ -65,9 +65,6 @@ C:\projetos dotnet core 6\AulaApi\AulaApi\obj\Debug\net6.0\ApiJwtBlogDotnetCore6
 C:\projetos dotnet core 6\AulaApi\AulaApi\obj\Debug\net6.0\ref\ApiJwtBlogDotnetCore6.dll
 C:\projetos dotnet core 6\AulaApi\AulaApi\obj\Debug\net6.0\ApiJwtBlogDotnetCore6.pdb
 C:\projetos dotnet core 6\AulaApi\AulaApi\obj\Debug\net6.0\ApiJwtBlogDotnetCore6.genruntimeconfig.cache
-C:\projetos dotnet core 6\ApiJwtBlogDotnetCore6\ApiJwtBlogDotnetCore6\bin\Debug\net6.0\appsettings.json
-C:\projetos dotnet core 6\ApiJwtBlogDotnetCore6\ApiJwtBlogDotnetCore6\bin\Debug\net6.0\appsettings.Development.json
-C:\projetos dotnet core 6\ApiJwtBlogDotnetCore6\ApiJwtBlogDotnetCore6\bin\Debug\net6.0\appsettings.Production.json
 C:\projetos dotnet core 6\ApiJwtBlogDotnetCore6\ApiJwtBlogDotnetCore6\bin\Debug\net6.0\ApiJwtBlogDotnetCore6.exe
 C:\projetos dotnet core 6\ApiJwtBlogDotnetCore6\ApiJwtBlogDotnetCore6\bin\Debug\net6.0\ApiJwtBlogDotnetCore6.deps.json
 C:\projetos dotnet core 6\ApiJwtBlogDotnetCore6\ApiJwtBlogDotnetCore6\bin\Debug\net6.0\ApiJwtBlogDotnetCore6.runtimeconfig.json
@@ -133,3 +130,7 @@ C:\projetos dotnet core 6\ApiJwtBlogDotnetCore6\ApiJwtBlogDotnetCore6\obj\Debug\
 C:\projetos dotnet core 6\ApiJwtBlogDotnetCore6\ApiJwtBlogDotnetCore6\obj\Debug\net6.0\ref\ApiJwtBlogDotnetCore6.dll
 C:\projetos dotnet core 6\ApiJwtBlogDotnetCore6\ApiJwtBlogDotnetCore6\obj\Debug\net6.0\ApiJwtBlogDotnetCore6.pdb
 C:\projetos dotnet core 6\ApiJwtBlogDotnetCore6\ApiJwtBlogDotnetCore6\obj\Debug\net6.0\ApiJwtBlogDotnetCore6.genruntimeconfig.cache
+C:\projetos dotnet core 6\ApiJwtBlogDotnetCore6\ApiJwtBlogDotnetCore6\bin\Debug\net6.0\ApiJwtBlogDotnetCore6.staticwebassets.runtime.json
+C:\projetos dotnet core 6\ApiJwtBlogDotnetCore6\ApiJwtBlogDotnetCore6\bin\Debug\net6.0\appsettings.Development.json
+C:\projetos dotnet core 6\ApiJwtBlogDotnetCore6\ApiJwtBlogDotnetCore6\bin\Debug\net6.0\appsettings.json
+C:\projetos dotnet core 6\ApiJwtBlogDotnetCore6\ApiJwtBlogDotnetCore6\bin\Debug\net6.0\appsettings.Production.json

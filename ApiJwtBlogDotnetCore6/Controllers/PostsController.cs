@@ -8,15 +8,19 @@ using System.Linq;
 
 namespace ApiJwtBlogDotnetCore6.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("[controller]")]
     public class PostsController : Controller
     {
         AutenticacaoContext applicationDbContext;
-        public PostsController() 
+        IWebHostEnvironment _hostingEnvironment;
+        IHttpContextAccessor _httpContextAccessor;
+        public PostsController(IWebHostEnvironment hostEnvironment, IHttpContextAccessor iHttpContextAccessor) 
         {
             applicationDbContext = new AutenticacaoContext(new DbContextOptions <AutenticacaoContext>());
+            this._hostingEnvironment = hostEnvironment;
+            this._httpContextAccessor = iHttpContextAccessor;
         }
 
         [AllowAnonymous]
@@ -65,25 +69,43 @@ namespace ApiJwtBlogDotnetCore6.Controllers
             }
         }
 
+        /*
         [HttpPost]
-        public ActionResult Create([FromBody]Posts posts)
+        public async Task<IActionResult> Upload(IList<IFormFile> files)
+        {
+            string uploads = Path.Combine(this._hostingEnvironment.ContentRootPath, "uploadsImgs");
+            foreach (IFormFile file in files)
+            {
+                if (file.Length > 0)
+                {
+                    string filePath = Path.Combine(uploads, file.FileName);
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(fileStream);
+                    }
+                }
+            }
+            return View();
+        }*/
+
+        [HttpPost]
+        public async Task<IActionResult> Create([FromForm]Posts posts)
         {
             try
             {
-                /*
-                if (!ModelState.IsValid)
+                string uploads = Path.Combine(this._hostingEnvironment.WebRootPath, "uploadsImgs");
+                if (posts.Imagem.Length > 0)
                 {
-                    var listaError = new List<String>();
-                    var listax = ModelState.Values.Select(x => x.Errors).ToList();
-                    foreach (var erros in listax) {
-                        foreach( var item in erros)
-                        {
-                            listaError.Add(item.ErrorMessage);
-                        }
-                        
+                    string filePath = Path.Combine(uploads, posts.Imagem.FileName);
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await posts.Imagem.CopyToAsync(fileStream);
                     }
-                    throw new Exception(String.Join(",", listaError));
-                }*/
+                    string host = this._httpContextAccessor.HttpContext.Request.Host.Value;
+
+                    posts.ImagemUrl = host + "/uploadsImgs/" + posts.Imagem.FileName;
+                }
+                
                 applicationDbContext.Posts.Add(posts);
                 applicationDbContext.SaveChanges();
 
