@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace ApiJwtBlogDotnetCore6.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class PostsController : Controller
@@ -67,25 +67,6 @@ namespace ApiJwtBlogDotnetCore6.Controllers
                 return BadRequest(ex);
             }
         }
-
-        /*
-        [HttpPost]
-        public async Task<IActionResult> Upload(IList<IFormFile> files)
-        {
-            string uploads = Path.Combine(this._hostingEnvironment.ContentRootPath, "uploadsImgs");
-            foreach (IFormFile file in files)
-            {
-                if (file.Length > 0)
-                {
-                    string filePath = Path.Combine(uploads, file.FileName);
-                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await file.CopyToAsync(fileStream);
-                    }
-                }
-            }
-            return View();
-        }*/
 
         [HttpPost]
         public async Task<IActionResult> Create([FromForm]Posts posts)
