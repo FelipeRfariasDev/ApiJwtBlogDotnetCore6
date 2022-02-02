@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using System.Linq;
 
 namespace ApiJwtBlogDotnetCore6.Controllers
 {
@@ -93,7 +92,8 @@ namespace ApiJwtBlogDotnetCore6.Controllers
         {
             try
             {
-                string uploads = Path.Combine(this._hostingEnvironment.WebRootPath, "uploadsImgs");
+                string uploadsImgs = "uploadsImgs";
+                string uploads = Path.Combine(this._hostingEnvironment.WebRootPath, uploadsImgs);
                 if (posts.Imagem.Length > 0)
                 {
                     string filePath = Path.Combine(uploads, posts.Imagem.FileName);
@@ -103,7 +103,7 @@ namespace ApiJwtBlogDotnetCore6.Controllers
                     }
                     string host = this._httpContextAccessor.HttpContext.Request.Host.Value;
 
-                    posts.ImagemUrl = host + "/uploadsImgs/" + posts.Imagem.FileName;
+                    posts.ImagemUrl = "https://" + host + "/"+ uploadsImgs + "/" + posts.Imagem.FileName;
                 }
                 
                 applicationDbContext.Posts.Add(posts);

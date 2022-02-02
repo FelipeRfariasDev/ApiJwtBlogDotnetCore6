@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
-namespace ApiJwtBlogDotnetCore6.Models
+namespace ApiJwtBlogDotnetCore6.ViewModels
 {
-    public class Posts
+    public class PostViewModel
     {
         public int Id { get; set; }
 
         [Required(ErrorMessage = "O campo Titulo é obrigatório")]
-        [MaxLength(100, ErrorMessage = "O titulo suporta no máximo 100 caracteres")]
+        [MaxLength(100,ErrorMessage = "O titulo suporta no máximo 100 caracteres")]
         public string Titulo { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
