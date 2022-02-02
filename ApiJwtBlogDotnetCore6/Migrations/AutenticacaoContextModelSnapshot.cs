@@ -38,12 +38,12 @@ namespace ApiJwtBlogDotnetCore6.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImagemUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Titulo")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 

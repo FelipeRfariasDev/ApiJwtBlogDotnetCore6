@@ -54,10 +54,10 @@ namespace ApiJwtBlogDotnetCore6.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Titulo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Titulo = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Descricao = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ImagemUrl = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    ImagemUrl = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {

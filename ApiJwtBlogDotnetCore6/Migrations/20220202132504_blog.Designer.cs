@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApiJwtBlogDotnetCore6.Migrations
 {
     [DbContext(typeof(AutenticacaoContext))]
-    [Migration("20220201200633_blog")]
+    [Migration("20220202132504_blog")]
     partial class blog
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,12 +40,12 @@ namespace ApiJwtBlogDotnetCore6.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImagemUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Titulo")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
