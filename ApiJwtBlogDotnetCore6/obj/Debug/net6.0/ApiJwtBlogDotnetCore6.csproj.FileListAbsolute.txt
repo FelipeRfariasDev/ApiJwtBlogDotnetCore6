@@ -133,4 +133,3 @@ C:\projetos dotnet core 6\ApiJwtBlogDotnetCore6\ApiJwtBlogDotnetCore6\obj\Debug\
 C:\projetos dotnet core 6\ApiJwtBlogDotnetCore6\ApiJwtBlogDotnetCore6\bin\Debug\net6.0\ApiJwtBlogDotnetCore6.staticwebassets.runtime.json
 C:\projetos dotnet core 6\ApiJwtBlogDotnetCore6\ApiJwtBlogDotnetCore6\bin\Debug\net6.0\appsettings.Development.json
 C:\projetos dotnet core 6\ApiJwtBlogDotnetCore6\ApiJwtBlogDotnetCore6\bin\Debug\net6.0\appsettings.json
-C:\projetos dotnet core 6\ApiJwtBlogDotnetCore6\ApiJwtBlogDotnetCore6\bin\Debug\net6.0\appsettings.Production.json
