@@ -5,10 +5,23 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ApiJwtBlogDotnetCore6.Migrations
 {
-    public partial class blog : Migration
+    public partial class Blog : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Arquivos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NomeArquivoEnviadoUrl = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Arquivos", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -54,7 +67,7 @@ namespace ApiJwtBlogDotnetCore6.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Titulo = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Titulo = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     Descricao = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ImagemUrl = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -62,6 +75,27 @@ namespace ApiJwtBlogDotnetCore6.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Posts", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Itens",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ArquivosId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Itens", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Itens_Arquivos_ArquivosId",
+                        column: x => x.ArquivosId,
+                        principalTable: "Arquivos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -208,6 +242,11 @@ namespace ApiJwtBlogDotnetCore6.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Itens_ArquivosId",
+                table: "Itens",
+                column: "ArquivosId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -228,6 +267,9 @@ namespace ApiJwtBlogDotnetCore6.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Itens");
+
+            migrationBuilder.DropTable(
                 name: "Posts");
 
             migrationBuilder.DropTable(
@@ -235,6 +277,9 @@ namespace ApiJwtBlogDotnetCore6.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Arquivos");
         }
     }
 }
