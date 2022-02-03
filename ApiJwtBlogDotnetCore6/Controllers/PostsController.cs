@@ -1,5 +1,6 @@
 ﻿using ApiJwtBlogDotnetCore6.Data;
 using ApiJwtBlogDotnetCore6.Models;
+using ApiJwtBlogDotnetCore6.Services;
 using ApiJwtBlogDotnetCore6.ViewModels;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -104,6 +105,14 @@ namespace ApiJwtBlogDotnetCore6.Controllers
                 applicationDbContext.Posts.Add(post);
                 applicationDbContext.SaveChanges();
 
+                var emailServices = new EmailServices();
+
+                var body = emailServices.GetEmailBody();
+                var email = new Email();
+                email.To = new List<EmailAddress>();
+                email.To.Add(new EmailAddress {Address="felipe.farias.php@gmail.com",Name="Felipe"});
+                emailServices.SendEmail(email,"Blog API", body);
+
                 var retorno = new {
                     success = true,
                     message = "cadastrado com sucesso",
@@ -162,5 +171,7 @@ namespace ApiJwtBlogDotnetCore6.Controllers
                 return BadRequest(ex);
             }
         }
+
+        
     }
 }
