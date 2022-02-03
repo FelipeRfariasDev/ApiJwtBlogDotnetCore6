@@ -8,6 +8,8 @@ namespace ApiJwtBlogDotnetCore6.Data
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Posts> Posts { get; set; }
+        public DbSet<Arquivos> Arquivos { get; set; }
+        public DbSet<Itens> Itens { get; set; }
         public AutenticacaoContext(DbContextOptions<AutenticacaoContext> options) : base(options)
         {
             
@@ -42,6 +44,7 @@ namespace ApiJwtBlogDotnetCore6.Data
             builder.Entity<Posts>().Property(p => p.Descricao).IsRequired();
  
             //builder.Entity<Posts>().Ignore(x=>x.Imagem);
+            builder.Entity<Arquivos>().Ignore(x=>x.NomeArquivoEnviado);
         }
 
     }

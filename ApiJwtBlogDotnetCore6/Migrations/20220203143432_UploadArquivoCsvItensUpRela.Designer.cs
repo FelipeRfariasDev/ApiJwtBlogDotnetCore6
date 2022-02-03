@@ -4,6 +4,7 @@ using ApiJwtBlogDotnetCore6.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApiJwtBlogDotnetCore6.Migrations
 {
     [DbContext(typeof(AutenticacaoContext))]
-    partial class AutenticacaoContextModelSnapshot : ModelSnapshot
+    [Migration("20220203143432_UploadArquivoCsvItensUpRela")]
+    partial class UploadArquivoCsvItensUpRela
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

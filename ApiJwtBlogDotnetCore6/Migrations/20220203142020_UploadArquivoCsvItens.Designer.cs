@@ -4,6 +4,7 @@ using ApiJwtBlogDotnetCore6.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApiJwtBlogDotnetCore6.Migrations
 {
     [DbContext(typeof(AutenticacaoContext))]
-    partial class AutenticacaoContextModelSnapshot : ModelSnapshot
+    [Migration("20220203142020_UploadArquivoCsvItens")]
+    partial class UploadArquivoCsvItens
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,38 +32,13 @@ namespace ApiJwtBlogDotnetCore6.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("NomeArquivoEnviadoUrl")
+                    b.Property<string>("NomeArquivoEnviado")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Arquivos");
-                });
-
-            modelBuilder.Entity("ApiJwtBlogDotnetCore6.Models.Itens", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("ArquivosId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ArquivosId");
-
-                    b.ToTable("Itens");
                 });
 
             modelBuilder.Entity("ApiJwtBlogDotnetCore6.Models.Posts", b =>
@@ -288,17 +265,6 @@ namespace ApiJwtBlogDotnetCore6.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("ApiJwtBlogDotnetCore6.Models.Itens", b =>
-                {
-                    b.HasOne("ApiJwtBlogDotnetCore6.Models.Arquivos", "Arquivo")
-                        .WithMany()
-                        .HasForeignKey("ArquivosId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Arquivo");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
