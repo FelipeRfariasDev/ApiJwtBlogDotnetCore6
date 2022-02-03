@@ -120,9 +120,6 @@ namespace ApiJwtBlogDotnetCore6.Controllers
                 };
 
                 return Ok(JsonConvert.SerializeObject(retorno));
-
-                
-
             }
             catch(Exception ex)
             {
@@ -171,7 +168,5 @@ namespace ApiJwtBlogDotnetCore6.Controllers
                 return BadRequest(ex);
             }
         }
-
-        
     }
 }

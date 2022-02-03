@@ -1,7 +1,5 @@
 ﻿using ApiJwtBlogDotnetCore6.Data;
 using ApiJwtBlogDotnetCore6.Models;
-using ApiJwtBlogDotnetCore6.ViewModels;
-using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -16,14 +14,10 @@ namespace ApiJwtBlogDotnetCore6.Controllers
     {
         AutenticacaoContext applicationDbContext;
         IWebHostEnvironment _hostingEnvironment;
-        IHttpContextAccessor _httpContextAccessor;
-        IMapper _mapper;
-        public ArquivosController(IWebHostEnvironment hostEnvironment, IHttpContextAccessor iHttpContextAccessor, IMapper mapper)
+        public ArquivosController(IWebHostEnvironment hostEnvironment)
         {
             applicationDbContext = new AutenticacaoContext(new DbContextOptions<AutenticacaoContext>());
             this._hostingEnvironment = hostEnvironment;
-            this._httpContextAccessor = iHttpContextAccessor;
-            this._mapper = mapper;
         }
 
         [AllowAnonymous]
