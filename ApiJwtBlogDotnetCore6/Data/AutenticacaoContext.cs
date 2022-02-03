@@ -37,7 +37,11 @@ namespace ApiJwtBlogDotnetCore6.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            builder.Entity<Posts>().Ignore(x=>x.Imagem);
+            //configurar tamanho dos campos da tabela
+            builder.Entity<Posts>().Property(p => p.Titulo).HasMaxLength(150).IsRequired();
+            builder.Entity<Posts>().Property(p => p.Descricao).IsRequired();
+ 
+            //builder.Entity<Posts>().Ignore(x=>x.Imagem);
         }
 
     }

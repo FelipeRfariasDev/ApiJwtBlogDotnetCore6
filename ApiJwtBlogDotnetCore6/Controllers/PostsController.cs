@@ -1,5 +1,7 @@
 ﻿using ApiJwtBlogDotnetCore6.Data;
 using ApiJwtBlogDotnetCore6.Models;
+using ApiJwtBlogDotnetCore6.ViewModels;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,11 +17,13 @@ namespace ApiJwtBlogDotnetCore6.Controllers
         AutenticacaoContext applicationDbContext;
         IWebHostEnvironment _hostingEnvironment;
         IHttpContextAccessor _httpContextAccessor;
-        public PostsController(IWebHostEnvironment hostEnvironment, IHttpContextAccessor iHttpContextAccessor) 
+        IMapper _mapper;
+        public PostsController(IWebHostEnvironment hostEnvironment, IHttpContextAccessor iHttpContextAccessor, IMapper mapper) 
         {
             applicationDbContext = new AutenticacaoContext(new DbContextOptions <AutenticacaoContext>());
             this._hostingEnvironment = hostEnvironment;
             this._httpContextAccessor = iHttpContextAccessor;
+            this._mapper = mapper;
         }
 
         [AllowAnonymous]
@@ -36,18 +40,20 @@ namespace ApiJwtBlogDotnetCore6.Controllers
                         c in applicationDbContext.Comentarios on p.Id equals c.postid
                         where p.Id == 8 select new { p.Id, p.Titulo, p.Descricao, p.DataCadastroFormatada, c.Id,c.Titulo,c.Descricao };
             */
-            var query = applicationDbContext.Posts.FromSqlRaw("select * from posts").ToList();
+            //var query = applicationDbContext.Posts.FromSqlRaw("select * from posts").ToList();
 
-            return Content(JsonConvert.SerializeObject(query));
-            /*
+            //return Content(JsonConvert.SerializeObject(query));
+            
             try
             {
-                List<Posts> posts = await applicationDbContext.Posts.Select(x => new Posts { Id = x.Id, Titulo = x.Titulo, Descricao = x.Descricao, DataCadastro = x.DataCadastro }).ToListAsync();
-                return Content(JsonConvert.SerializeObject(posts));
+                //List<PostsViewModel> posts = await applicationDbContext.Posts.Select(x => new PostsViewModel { Id = x.Id, Titulo = x.Titulo, Descricao = x.Descricao, DataCadastro = x.DataCadastro }).ToListAsync();
+                var listaPosts = await applicationDbContext.Posts.ToListAsync();
+                
+                return Content(JsonConvert.SerializeObject(listaPosts));
             }
             catch (Exception ex) {
                 return BadRequest(ex);
-            }*/
+            }
 
 
         }
@@ -67,33 +73,41 @@ namespace ApiJwtBlogDotnetCore6.Controllers
                 return BadRequest(ex);
             }
         }
-
+        [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Create([FromForm]Posts posts)
+        public async Task<IActionResult> Create([FromForm]PostsViewModel postsViewModel)
         {
             try
             {
                 string uploadsImgs = "uploadsImgs";
                 string uploads = Path.Combine(this._hostingEnvironment.WebRootPath, uploadsImgs);
-                if (posts.Imagem.Length > 0)
+                if (postsViewModel.Imagem.Length > 0)
                 {
-                    string filePath = Path.Combine(uploads, posts.Imagem.FileName);
+                    string filePath = Path.Combine(uploads, postsViewModel.Imagem.FileName);
                     using (Stream fileStream = new FileStream(filePath, FileMode.Create))
                     {
-                        await posts.Imagem.CopyToAsync(fileStream);
+                        await postsViewModel.Imagem.CopyToAsync(fileStream);
                     }
                     string host = this._httpContextAccessor.HttpContext.Request.Host.Value;
 
-                    posts.ImagemUrl = "https://" + host + "/"+ uploadsImgs + "/" + posts.Imagem.FileName;
+                    postsViewModel.ImagemUrl = "https://" + host + "/"+ uploadsImgs + "/" + postsViewModel.Imagem.FileName;
                 }
+                DateTime DataCadastro = DateTime.Now;
+                postsViewModel.DataCadastro = DataCadastro;
+                /* Exemplo sem utilizar o mapper
+                var post = new Posts { Titulo = postsViewModel.Titulo, Descricao = postsViewModel.Descricao, DataCadastro = postsViewModel.DataCadastro, ImagemUrl = postsViewModel.ImagemUrl };
+                */
+
+                //Exemplo com o mapper
+                var post = this._mapper.Map<Posts>(postsViewModel);
                 
-                applicationDbContext.Posts.Add(posts);
+                applicationDbContext.Posts.Add(post);
                 applicationDbContext.SaveChanges();
 
                 var retorno = new {
                     success = true,
                     message = "cadastrado com sucesso",
-                    post = posts
+                    post = post
                 };
 
                 return Ok(JsonConvert.SerializeObject(retorno));
@@ -109,7 +123,7 @@ namespace ApiJwtBlogDotnetCore6.Controllers
                     message = ex
                 };
 
-                return BadRequest(retorno);
+                return Ok(JsonConvert.SerializeObject(retorno));
             }
         }
 
