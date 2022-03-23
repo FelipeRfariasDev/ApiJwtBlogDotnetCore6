@@ -10,7 +10,7 @@ namespace ApiCore.Tests.Fixture
 {
     public class ApiCoreFixture
     {
-        public IAutenticacaoContext AutenticacaoContext { get; set; }
+        public AutenticacaoContext AutenticacaoContext { get; set; }
 
         public ApiCoreFixture()
         {

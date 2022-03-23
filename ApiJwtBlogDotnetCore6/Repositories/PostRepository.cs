@@ -6,8 +6,8 @@ namespace ApiJwtBlogDotnetCore6.Repositories
 {
     public class PostRepository
     {
-        IAutenticacaoContext _context;
-        public PostRepository(IAutenticacaoContext context)
+        AutenticacaoContext _context;
+        public PostRepository(AutenticacaoContext context)
         {
             _context = context;
         }
