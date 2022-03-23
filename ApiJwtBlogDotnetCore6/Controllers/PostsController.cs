@@ -19,9 +19,9 @@ namespace ApiJwtBlogDotnetCore6.Controllers
         IWebHostEnvironment _hostingEnvironment;
         IHttpContextAccessor _httpContextAccessor;
         IMapper _mapper;
-        public PostsController(IWebHostEnvironment hostEnvironment, IHttpContextAccessor iHttpContextAccessor, IMapper mapper) 
+        public PostsController(IWebHostEnvironment hostEnvironment, IHttpContextAccessor iHttpContextAccessor, IMapper mapper)
         {
-            applicationDbContext = new AutenticacaoContext(new DbContextOptions <AutenticacaoContext>());
+            applicationDbContext = new AutenticacaoContext(new DbContextOptions<AutenticacaoContext>());
             this._hostingEnvironment = hostEnvironment;
             this._httpContextAccessor = iHttpContextAccessor;
             this._mapper = mapper;
@@ -29,7 +29,7 @@ namespace ApiJwtBlogDotnetCore6.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? offset = 0, int? limit = 10, string? buscar = null)
         {
 
             //var query = from p in applicationDbContext.Posts select new  {p.Id, p.Titulo, p.Descricao, p.DataCadastroFormatada};
@@ -44,15 +44,21 @@ namespace ApiJwtBlogDotnetCore6.Controllers
             //var query = applicationDbContext.Posts.FromSqlRaw("select * from posts").ToList();
 
             //return Content(JsonConvert.SerializeObject(query));
-            
+
             try
             {
                 //List<PostsViewModel> posts = await applicationDbContext.Posts.Select(x => new PostsViewModel { Id = x.Id, Titulo = x.Titulo, Descricao = x.Descricao, DataCadastro = x.DataCadastro }).ToListAsync();
-                var listaPosts = await applicationDbContext.Posts.ToListAsync();
-                
+                var listaPosts = await applicationDbContext.Posts
+                    .Where(x => x.Titulo.Contains(buscar != null ? buscar : x.Titulo)
+                    || x.Descricao.Contains(buscar != null ? buscar : x.Descricao))
+                    .Skip((int)offset * (int)limit)
+                        .Take((int)limit)
+                        .ToListAsync();
+
                 return Content(JsonConvert.SerializeObject(listaPosts));
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 return BadRequest(ex);
             }
 
@@ -62,7 +68,7 @@ namespace ApiJwtBlogDotnetCore6.Controllers
         [AllowAnonymous]
         [HttpGet]
         [Route("Details/{id}")]
-        public async Task<ActionResult> Details([FromRoute]int id)
+        public async Task<ActionResult> Details([FromRoute] int id)
         {
             try
             {
@@ -76,7 +82,7 @@ namespace ApiJwtBlogDotnetCore6.Controllers
         }
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Create([FromForm]PostsViewModel postsViewModel)
+        public async Task<IActionResult> Create([FromForm] PostsViewModel postsViewModel)
         {
             try
             {
@@ -91,7 +97,7 @@ namespace ApiJwtBlogDotnetCore6.Controllers
                     }
                     string host = this._httpContextAccessor.HttpContext.Request.Host.Value;
 
-                    postsViewModel.ImagemUrl = "https://" + host + "/"+ uploadsImgs + "/" + postsViewModel.Imagem.FileName;
+                    postsViewModel.ImagemUrl = "https://" + host + "/" + uploadsImgs + "/" + postsViewModel.Imagem.FileName;
                 }
                 DateTime DataCadastro = DateTime.Now;
                 postsViewModel.DataCadastro = DataCadastro;
@@ -101,7 +107,7 @@ namespace ApiJwtBlogDotnetCore6.Controllers
 
                 //Exemplo com o mapper
                 var post = this._mapper.Map<Posts>(postsViewModel);
-                
+
                 applicationDbContext.Posts.Add(post);
                 applicationDbContext.SaveChanges();
 
@@ -110,10 +116,11 @@ namespace ApiJwtBlogDotnetCore6.Controllers
                 var body = emailServices.GetEmailBody();
                 var email = new Email();
                 email.To = new List<EmailAddress>();
-                email.To.Add(new EmailAddress {Address="felipe.farias.php@gmail.com",Name="Felipe"});
-                emailServices.SendEmail(email,"Blog API", body);
+                email.To.Add(new EmailAddress { Address = "felipe.farias.php@gmail.com", Name = "Felipe" });
+                emailServices.SendEmail(email, "Blog API", body);
 
-                var retorno = new {
+                var retorno = new
+                {
                     success = true,
                     message = "cadastrado com sucesso",
                     post = post
@@ -121,7 +128,7 @@ namespace ApiJwtBlogDotnetCore6.Controllers
 
                 return Ok(JsonConvert.SerializeObject(retorno));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 var retorno = new
                 {
@@ -134,7 +141,7 @@ namespace ApiJwtBlogDotnetCore6.Controllers
         }
 
         [HttpPut]
-        public ActionResult Edit([FromBody]Posts posts)
+        public ActionResult Edit([FromBody] Posts posts)
         {
             try
             {
@@ -142,7 +149,7 @@ namespace ApiJwtBlogDotnetCore6.Controllers
                 applicationDbContext.SaveChanges();
                 return Ok(JsonConvert.SerializeObject(posts));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(ex);
             }
@@ -150,20 +157,20 @@ namespace ApiJwtBlogDotnetCore6.Controllers
 
         [HttpDelete]
         [Route("Delete/{id}")]
-        public ActionResult Delete([FromRoute]int Id)
+        public ActionResult Delete([FromRoute] int Id)
         {
             try
             {
                 var posts = applicationDbContext.Posts.Find(Id);
-                if (posts == null) 
-                { 
-                    return BadRequest("post id " + Id + " não encontrado"); 
+                if (posts == null)
+                {
+                    return BadRequest("post id " + Id + " não encontrado");
                 }
                 applicationDbContext.Posts.Remove(posts);
                 applicationDbContext.SaveChanges();
-                return Ok("post id "+ Id + "removido com sucesso");
+                return Ok("post id " + Id + "removido com sucesso");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(ex);
             }

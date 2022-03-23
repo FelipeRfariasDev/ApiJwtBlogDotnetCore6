@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ApiJwtBlogDotnetCore6.Data
 {
-    public class AutenticacaoContext: IdentityDbContext<User>
+    public class AutenticacaoContext: IdentityDbContext<User>, IAutenticacaoContext
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Posts> Posts { get; set; }
