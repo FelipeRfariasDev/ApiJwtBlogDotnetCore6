@@ -1,6 +1,6 @@
 using ApiCore.Tests.Fixture;
-using ApiJwtBlogDotnetCore6.Models;
-using ApiJwtBlogDotnetCore6.Repositories;
+using Blog.Domain.Entities;
+using Blog.Infra.Repositories;
 using System;
 using Xunit;
 

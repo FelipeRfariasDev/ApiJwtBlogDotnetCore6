@@ -1,8 +1,10 @@
-﻿using ApiJwtBlogDotnetCore6.Data;
-using ApiJwtBlogDotnetCore6.Models;
-using ApiJwtBlogDotnetCore6.Services;
-using ApiJwtBlogDotnetCore6.ViewModels;
-using AutoMapper;
+﻿using AutoMapper;
+using Blog.Application.AppServices;
+using Blog.Application.Interfaces;
+using Blog.Application.ViewModels;
+using Blog.Domain.Entities;
+using Blog.Domain.NotMapped;
+using Blog.Infra.Context;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -19,12 +21,15 @@ namespace ApiJwtBlogDotnetCore6.Controllers
         IWebHostEnvironment _hostingEnvironment;
         IHttpContextAccessor _httpContextAccessor;
         IMapper _mapper;
-        public PostsController(IWebHostEnvironment hostEnvironment, IHttpContextAccessor iHttpContextAccessor, IMapper mapper)
+        IPostAppService _postAppService;
+
+        public PostsController(IWebHostEnvironment hostEnvironment, IHttpContextAccessor iHttpContextAccessor, IMapper mapper, IPostAppService postAppService)
         {
             applicationDbContext = new AutenticacaoContext(new DbContextOptions<AutenticacaoContext>());
             this._hostingEnvironment = hostEnvironment;
             this._httpContextAccessor = iHttpContextAccessor;
             this._mapper = mapper;
+            this._postAppService = postAppService;
         }
 
         [AllowAnonymous]
@@ -72,7 +77,7 @@ namespace ApiJwtBlogDotnetCore6.Controllers
         {
             try
             {
-                var post = await applicationDbContext.Posts.FirstOrDefaultAsync(x => x.Id == id);
+                var post = _postAppService.GetById(id);
                 return Content(JsonConvert.SerializeObject(post));
             }
             catch (Exception ex)

@@ -1,5 +1,9 @@
 using ApiJwtBlogDotnetCore6.Configuration;
-using ApiJwtBlogDotnetCore6.Data;
+using Blog.Application.AppServices;
+using Blog.Application.Interfaces;
+using Blog.Infra.Context;
+using Blog.Infra.Interfaces;
+using Blog.Infra.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +23,9 @@ builder.Services.AddDbContext<AutenticacaoContext>(options =>
     options.UseSqlServer(connectionString));
 
 builder.Services.AddIdentityConfig(builder.Configuration);
+
+builder.Services.AddScoped<IPostAppService, PostAppService>();
+builder.Services.AddScoped<IPostRepository, PostRepository>();
 
 var app = builder.Build();
 

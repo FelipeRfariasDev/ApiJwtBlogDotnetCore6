@@ -1,6 +1,6 @@
-﻿using ApiJwtBlogDotnetCore6.Models;
-using ApiJwtBlogDotnetCore6.ViewModels;
-using AutoMapper;
+﻿using AutoMapper;
+using Blog.Application.ViewModels;
+using Blog.Domain.Entities;
 
 namespace ApiJwtBlogDotnetCore6.AutoMapper
 {

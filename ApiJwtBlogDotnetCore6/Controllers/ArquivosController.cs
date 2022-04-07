@@ -1,5 +1,6 @@
-﻿using ApiJwtBlogDotnetCore6.Data;
-using ApiJwtBlogDotnetCore6.Models;
+﻿using Blog.Application.ViewModels;
+using Blog.Domain.Entities;
+using Blog.Infra.Context;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -22,7 +23,7 @@ namespace ApiJwtBlogDotnetCore6.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Create([FromForm] Arquivos arquivos)
+        public async Task<IActionResult> Create([FromForm] ArquivoViewModel arquivos)
         {
             try
             {

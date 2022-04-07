@@ -1,6 +1,6 @@
 ﻿using ApiJwtBlogDotnetCore6.Configuration;
-using ApiJwtBlogDotnetCore6.Models;
-using ApiJwtBlogDotnetCore6.ViewModels;
+using Blog.Application.ViewModels;
+using Blog.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;

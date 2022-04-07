@@ -1,10 +1,9 @@
-﻿using ApiJwtBlogDotnetCore6.Data;
-using ApiJwtBlogDotnetCore6.IdentityConfig;
-using ApiJwtBlogDotnetCore6.Models;
+﻿using ApiJwtBlogDotnetCore6.IdentityConfig;
+using Blog.Domain.Entities;
+using Blog.Infra.Context;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 

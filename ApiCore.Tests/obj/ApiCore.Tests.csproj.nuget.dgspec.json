@@ -30,6 +30,9 @@
             "projectReferences": {
               "C:\\projetos dotnet core 6\\ApiJwtBlogDotnetCore6\\ApiJwtBlogDotnetCore6\\ApiJwtBlogDotnetCore6.csproj": {
                 "projectPath": "C:\\projetos dotnet core 6\\ApiJwtBlogDotnetCore6\\ApiJwtBlogDotnetCore6\\ApiJwtBlogDotnetCore6.csproj"
+              },
+              "C:\\projetos dotnet core 6\\ApiJwtBlogDotnetCore6\\Blog.Infra\\Blog.Infra.csproj": {
+                "projectPath": "C:\\projetos dotnet core 6\\ApiJwtBlogDotnetCore6\\Blog.Infra\\Blog.Infra.csproj"
               }
             }
           }
@@ -46,11 +49,11 @@
           "dependencies": {
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[6.0.3, )"
+              "version": "[6.0.1, )"
             },
             "Microsoft.EntityFrameworkCore.InMemory": {
               "target": "Package",
-              "version": "[6.0.3, )"
+              "version": "[6.0.1, )"
             },
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
@@ -115,7 +118,14 @@
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\projetos dotnet core 6\\ApiJwtBlogDotnetCore6\\Blog.Application\\Blog.Application.csproj": {
+                "projectPath": "C:\\projetos dotnet core 6\\ApiJwtBlogDotnetCore6\\Blog.Application\\Blog.Application.csproj"
+              },
+              "C:\\projetos dotnet core 6\\ApiJwtBlogDotnetCore6\\Blog.Infra\\Blog.Infra.csproj": {
+                "projectPath": "C:\\projetos dotnet core 6\\ApiJwtBlogDotnetCore6\\Blog.Infra\\Blog.Infra.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -154,6 +164,10 @@
               "target": "Package",
               "version": "[6.0.1, )"
             },
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[6.0.1, )"
+            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[6.0.1, )"
@@ -187,6 +201,245 @@
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
             },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\projetos dotnet core 6\\ApiJwtBlogDotnetCore6\\Blog.Application\\Blog.Application.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\projetos dotnet core 6\\ApiJwtBlogDotnetCore6\\Blog.Application\\Blog.Application.csproj",
+        "projectName": "Blog.Application",
+        "projectPath": "C:\\projetos dotnet core 6\\ApiJwtBlogDotnetCore6\\Blog.Application\\Blog.Application.csproj",
+        "packagesPath": "C:\\Users\\3CON\\.nuget\\packages\\",
+        "outputPath": "C:\\projetos dotnet core 6\\ApiJwtBlogDotnetCore6\\Blog.Application\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\3CON\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\projetos dotnet core 6\\ApiJwtBlogDotnetCore6\\Blog.Domain\\Blog.Domain.csproj": {
+                "projectPath": "C:\\projetos dotnet core 6\\ApiJwtBlogDotnetCore6\\Blog.Domain\\Blog.Domain.csproj"
+              },
+              "C:\\projetos dotnet core 6\\ApiJwtBlogDotnetCore6\\Blog.Infra\\Blog.Infra.csproj": {
+                "projectPath": "C:\\projetos dotnet core 6\\ApiJwtBlogDotnetCore6\\Blog.Infra\\Blog.Infra.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "MailKit": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
+            "Microsoft.AspNetCore.Http.Features": {
+              "target": "Package",
+              "version": "[5.0.15, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\projetos dotnet core 6\\ApiJwtBlogDotnetCore6\\Blog.Domain\\Blog.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\projetos dotnet core 6\\ApiJwtBlogDotnetCore6\\Blog.Domain\\Blog.Domain.csproj",
+        "projectName": "Blog.Domain",
+        "projectPath": "C:\\projetos dotnet core 6\\ApiJwtBlogDotnetCore6\\Blog.Domain\\Blog.Domain.csproj",
+        "packagesPath": "C:\\Users\\3CON\\.nuget\\packages\\",
+        "outputPath": "C:\\projetos dotnet core 6\\ApiJwtBlogDotnetCore6\\Blog.Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\3CON\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.Extensions.Identity.Stores": {
+              "target": "Package",
+              "version": "[6.0.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\projetos dotnet core 6\\ApiJwtBlogDotnetCore6\\Blog.Infra\\Blog.Infra.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\projetos dotnet core 6\\ApiJwtBlogDotnetCore6\\Blog.Infra\\Blog.Infra.csproj",
+        "projectName": "Blog.Infra",
+        "projectPath": "C:\\projetos dotnet core 6\\ApiJwtBlogDotnetCore6\\Blog.Infra\\Blog.Infra.csproj",
+        "packagesPath": "C:\\Users\\3CON\\.nuget\\packages\\",
+        "outputPath": "C:\\projetos dotnet core 6\\ApiJwtBlogDotnetCore6\\Blog.Infra\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\3CON\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\projetos dotnet core 6\\ApiJwtBlogDotnetCore6\\Blog.Domain\\Blog.Domain.csproj": {
+                "projectPath": "C:\\projetos dotnet core 6\\ApiJwtBlogDotnetCore6\\Blog.Domain\\Blog.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[6.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[6.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.1, )"
+            },
+            "Microsoft.Extensions.Configuration": {
+              "target": "Package",
+              "version": "[6.0.1, )"
+            },
+            "Microsoft.Extensions.Configuration.EnvironmentVariables": {
+              "target": "Package",
+              "version": "[6.0.1, )"
+            },
+            "Microsoft.Extensions.Configuration.FileExtensions": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
+            "Microsoft.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
