@@ -32,7 +32,7 @@ namespace ApiJwtBlogDotnetCore6.Controllers
             this._postAppService = postAppService;
         }
 
-        [AllowAnonymous]
+        
         [HttpGet]
         public async Task<IActionResult> Index(int? offset = 0, int? limit = 10, string? buscar = null)
         {
@@ -70,9 +70,9 @@ namespace ApiJwtBlogDotnetCore6.Controllers
 
         }
 
-        [AllowAnonymous]
+        
         [HttpGet]
-        [Route("Details/{id}")]
+        [Route("/Posts/{id}")]
         public async Task<ActionResult> Details([FromRoute] int id)
         {
             try
@@ -85,7 +85,7 @@ namespace ApiJwtBlogDotnetCore6.Controllers
                 return BadRequest(ex);
             }
         }
-        [AllowAnonymous]
+        
         [HttpPost]
         public async Task<IActionResult> Create([FromForm] PostsViewModel postsViewModel)
         {
@@ -116,18 +116,19 @@ namespace ApiJwtBlogDotnetCore6.Controllers
                 applicationDbContext.Posts.Add(post);
                 applicationDbContext.SaveChanges();
 
+                
                 var emailServices = new EmailServices();
 
                 var body = emailServices.GetEmailBody();
                 var email = new Email();
                 email.To = new List<EmailAddress>();
                 email.To.Add(new EmailAddress { Address = "felipe.farias.php@gmail.com", Name = "Felipe" });
-                emailServices.SendEmail(email, "Blog API", body);
-
+                emailServices.SendEmail(email, "(Add Post) Teste Ratto Softwares", body);
+                
                 var retorno = new
                 {
                     success = true,
-                    message = "cadastrado com sucesso",
+                    message = "Cadastrado com sucesso",
                     post = post
                 };
 
@@ -146,22 +147,67 @@ namespace ApiJwtBlogDotnetCore6.Controllers
         }
 
         [HttpPut]
-        public ActionResult Edit([FromBody] Posts posts)
+        public async Task<ActionResult> EditAsync([FromForm] PostsViewModel postsViewModel)
         {
             try
             {
-                applicationDbContext.Posts.Update(posts);
+                string uploadsImgs = "uploadsImgs";
+                string uploads = Path.Combine(this._hostingEnvironment.WebRootPath, uploadsImgs);
+                if (postsViewModel.Imagem.Length > 0)
+                {
+                    string filePath = Path.Combine(uploads, postsViewModel.Imagem.FileName);
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await postsViewModel.Imagem.CopyToAsync(fileStream);
+                    }
+                    string host = this._httpContextAccessor.HttpContext.Request.Host.Value;
+
+                    postsViewModel.ImagemUrl = "https://" + host + "/" + uploadsImgs + "/" + postsViewModel.Imagem.FileName;
+                }
+                DateTime DataCadastro = DateTime.Now;
+                postsViewModel.DataCadastro = DataCadastro;
+                /* Exemplo sem utilizar o mapper
+                var post = new Posts { Titulo = postsViewModel.Titulo, Descricao = postsViewModel.Descricao, DataCadastro = postsViewModel.DataCadastro, ImagemUrl = postsViewModel.ImagemUrl };
+                */
+
+                //Exemplo com o mapper
+                var post = this._mapper.Map<Posts>(postsViewModel);
+
+                applicationDbContext.Posts.Update(post);
                 applicationDbContext.SaveChanges();
-                return Ok(JsonConvert.SerializeObject(posts));
+
+
+                var emailServices = new EmailServices();
+
+                var body = emailServices.GetEmailBody();
+                var email = new Email();
+                email.To = new List<EmailAddress>();
+                email.To.Add(new EmailAddress { Address = "felipe.farias.php@gmail.com", Name = "Felipe" });
+                emailServices.SendEmail(email, "(Update Post)Teste Ratto Softwares", body);
+
+                var retorno = new
+                {
+                    success = true,
+                    message = "Atualizado com sucesso",
+                    post = post
+                };
+
+                return Ok(JsonConvert.SerializeObject(retorno));
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                var retorno = new
+                {
+                    success = false,
+                    message = ex
+                };
+
+                return Ok(JsonConvert.SerializeObject(retorno));
             }
         }
 
         [HttpDelete]
-        [Route("Delete/{id}")]
+        [Route("/Posts/{id}")]
         public ActionResult Delete([FromRoute] int Id)
         {
             try
@@ -173,7 +219,7 @@ namespace ApiJwtBlogDotnetCore6.Controllers
                 }
                 applicationDbContext.Posts.Remove(posts);
                 applicationDbContext.SaveChanges();
-                return Ok("post id " + Id + "removido com sucesso");
+                return Ok("post id " + Id + " removido com sucesso");
             }
             catch (Exception ex)
             {

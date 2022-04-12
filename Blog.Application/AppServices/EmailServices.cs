@@ -55,8 +55,8 @@ namespace Blog.Application.AppServices
 
         public string GetEmailBody()
         {
-            string body = "<h1>Titulo</h1>";
-            body += $"corpo do email";
+            string body = "<h1>Ratto Softwares</h1>";
+            body += $"Meu nome é Jorge Lemos, sou Team Leader da Ratto Softwares";
 
             return body;
         }

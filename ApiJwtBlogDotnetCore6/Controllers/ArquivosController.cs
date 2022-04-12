@@ -21,7 +21,6 @@ namespace ApiJwtBlogDotnetCore6.Controllers
             this._hostingEnvironment = hostEnvironment;
         }
 
-        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Create([FromForm] ArquivoViewModel arquivos)
         {
