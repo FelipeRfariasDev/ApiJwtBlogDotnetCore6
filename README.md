@@ -25,3 +25,6 @@ A API deve implementar os seguintes verbos e endpoint:
 
 [Iniciar Video](https://www.youtube.com/watch?v=)
 ##### Autor > Felipe Rodrigues Farias
+
+![alt text](https://github.com/FelipeRfariasDev/ApiJwtBlogDotnetCore6/blob/main/Documenta%C3%A7%C3%A3o/swagger.png?raw=true)
+
