@@ -40,7 +40,18 @@ A API deve implementar os seguintes verbos e endpoint:
 [Iniciar Video](https://www.youtube.com/watch?v=)
 ##### Autor > Felipe Rodrigues Farias
 
+## Teste Unitário
+
+
 ![alt text](https://github.com/FelipeRfariasDev/ApiJwtBlogDotnetCore6/blob/main/Documenta%C3%A7%C3%A3o/swagger.png?raw=true)
+.
+
+![alt text](https://github.com/FelipeRfariasDev/ApiJwtBlogDotnetCore6/blob/main/Documenta%C3%A7%C3%A3o/TesteUnit%C3%A1rio.png?raw=true)
+
+![alt text](https://github.com/FelipeRfariasDev/ApiJwtBlogDotnetCore6/blob/main/Documenta%C3%A7%C3%A3o/TesteUnit%C3%A1rio2.png?raw=true)
+
+
+![alt text](https://github.com/FelipeRfariasDev/ApiJwtBlogDotnetCore6/blob/main/Documenta%C3%A7%C3%A3o/TesteUnit%C3%A1rio3.png?raw=true)
 
 ## Postaman
 https://github.com/FelipeRfariasDev/ApiJwtBlogDotnetCore6/blob/main/Documenta%C3%A7%C3%A3o/Api%20Dotnet%20Core%206.postman_collection.json
