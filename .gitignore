@@ -5,3 +5,9 @@
 ApiJwtBlogDotnetCore6/appsettings.Production.json
 ApiJwtBlogDotnetCore6/obj
 ApiJwtBlogDotnetCore6/bin
+ApiCore.Tests/obj
+ApiCore.Tests/bin
+Blog.Application/obj
+Blog.Application/bin
+Blog.Infra/obj
+Blog.Infra/bin

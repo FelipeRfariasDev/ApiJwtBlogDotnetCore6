@@ -1,4 +1,5 @@
-﻿using Blog.Domain.NotMapped;
+﻿using Blog.Application.ViewModels;
+using Blog.Domain.NotMapped;
 using MailKit.Security;
 using MimeKit;
 using System.Net;
@@ -41,7 +42,7 @@ namespace Blog.Application.AppServices
 
         private MimeMessage GetEmailFrom(MimeMessage message)
         {
-            message.From.Add(new MailboxAddress("API Blog", "190190f@gmail.com"));
+            message.From.Add(new MailboxAddress("API RestFull", "190190f@gmail.com"));
             return message;
         }
 
@@ -53,11 +54,11 @@ namespace Blog.Application.AppServices
             return message;
         }
 
-        public string GetEmailBody()
+        public string GetEmailBody(PostsViewModel postsViewModel)
         {
-            string body = "<h1>Ratto Softwares</h1>";
-            body += $"Meu nome é Jorge Lemos, sou Team Leader da Ratto Softwares";
-
+            string body = "<h1>"+postsViewModel.Titulo+"</h1>";
+            body += $"Descrição: "+postsViewModel.Descricao+"\r\n";
+            body += $"Imagem: "+postsViewModel.ImagemUrl;
             return body;
         }
     }

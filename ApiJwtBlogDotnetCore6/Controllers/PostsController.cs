@@ -66,14 +66,11 @@ namespace ApiJwtBlogDotnetCore6.Controllers
             {
                 return BadRequest(ex);
             }
-
-
         }
 
-        
         [HttpGet]
         [Route("/Posts/{id}")]
-        public async Task<ActionResult> Details([FromRoute] int id)
+        public ActionResult Details([FromRoute] int id)
         {
             try
             {
@@ -85,7 +82,7 @@ namespace ApiJwtBlogDotnetCore6.Controllers
                 return BadRequest(ex);
             }
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> Create([FromForm] PostsViewModel postsViewModel)
         {
@@ -102,7 +99,8 @@ namespace ApiJwtBlogDotnetCore6.Controllers
                     }
                     string host = this._httpContextAccessor.HttpContext.Request.Host.Value;
 
-                    postsViewModel.ImagemUrl = "https://" + host + "/" + uploadsImgs + "/" + postsViewModel.Imagem.FileName;
+                    string ImgUrl = "https://" + host + "/" + uploadsImgs + "/";
+                    postsViewModel.ImagemUrl = ImgUrl + postsViewModel.Imagem.FileName;
                 }
                 DateTime DataCadastro = DateTime.Now;
                 postsViewModel.DataCadastro = DataCadastro;
@@ -119,11 +117,11 @@ namespace ApiJwtBlogDotnetCore6.Controllers
                 
                 var emailServices = new EmailServices();
 
-                var body = emailServices.GetEmailBody();
+                var body = emailServices.GetEmailBody(postsViewModel);
                 var email = new Email();
                 email.To = new List<EmailAddress>();
-                email.To.Add(new EmailAddress { Address = "felipe.farias.php@gmail.com", Name = "Felipe" });
-                emailServices.SendEmail(email, "(Add Post) Teste Ratto Softwares", body);
+                email.To.Add(new EmailAddress { Address = "feliperfariasdev@gmail.com", Name = "Felipe Farias" });
+                emailServices.SendEmail(email, "(Add Post)", body);
                 
                 var retorno = new
                 {
@@ -160,9 +158,9 @@ namespace ApiJwtBlogDotnetCore6.Controllers
                     {
                         await postsViewModel.Imagem.CopyToAsync(fileStream);
                     }
-                    string host = this._httpContextAccessor.HttpContext.Request.Host.Value;
+                    string ImgUrl = this._httpContextAccessor.HttpContext.Request.Host.Value;
 
-                    postsViewModel.ImagemUrl = "https://" + host + "/" + uploadsImgs + "/" + postsViewModel.Imagem.FileName;
+                    postsViewModel.ImagemUrl = "https://" + ImgUrl + "/" + uploadsImgs + "/" + postsViewModel.Imagem.FileName;
                 }
                 DateTime DataCadastro = DateTime.Now;
                 postsViewModel.DataCadastro = DataCadastro;
@@ -179,11 +177,11 @@ namespace ApiJwtBlogDotnetCore6.Controllers
 
                 var emailServices = new EmailServices();
 
-                var body = emailServices.GetEmailBody();
+                var body = emailServices.GetEmailBody(postsViewModel);
                 var email = new Email();
                 email.To = new List<EmailAddress>();
-                email.To.Add(new EmailAddress { Address = "felipe.farias.php@gmail.com", Name = "Felipe" });
-                emailServices.SendEmail(email, "(Update Post)Teste Ratto Softwares", body);
+                email.To.Add(new EmailAddress { Address = "feliperfariasdev@gmail.com", Name = "Felipe Farias" });
+                emailServices.SendEmail(email, "(Update Post)", body);
 
                 var retorno = new
                 {

@@ -26,8 +26,8 @@ namespace ApiJwtBlogDotnetCore6.Controllers
         {
             try
             {
-                string uploadsImgs = "uploadsCsv";
-                string uploads = Path.Combine(this._hostingEnvironment.WebRootPath, uploadsImgs);
+                string diretorioUploadsCsv = "uploadsCsv";
+                string uploads = Path.Combine(this._hostingEnvironment.WebRootPath, diretorioUploadsCsv);
                 string filePath = "";
 
                 if (arquivos.NomeArquivoEnviado!=null && arquivos.NomeArquivoEnviado.Length > 0)
@@ -39,7 +39,7 @@ namespace ApiJwtBlogDotnetCore6.Controllers
                     }
                 }
 
-                var NomeArquivoEnviadoUrl = uploadsImgs + "/" + arquivos.NomeArquivoEnviado.FileName;
+                var NomeArquivoEnviadoUrl = diretorioUploadsCsv + "/" + arquivos.NomeArquivoEnviado.FileName;
 
                 var arquivo = new Arquivos { NomeArquivoEnviadoUrl = NomeArquivoEnviadoUrl };
                 
@@ -63,7 +63,7 @@ namespace ApiJwtBlogDotnetCore6.Controllers
                 var retorno = new
                 {
                     success = true,
-                    message = "cadastrado com sucesso",
+                    message = "Cadastrado com sucesso",
                     arquivo = arquivo
                 };
                 

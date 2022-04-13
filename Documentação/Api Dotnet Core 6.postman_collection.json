@@ -1,0 +1,369 @@
+{
+	"info": {
+		"_postman_id": "4596bf0f-9efa-4bf6-9391-2a6d2286a951",
+		"name": "Api Dotnet Core 6",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "Entrar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Email\":\"felipe@gmail.com\",\r\n    \"Password\":\"Senha@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL_API_DOTNET}}/entrar",
+							"host": [
+								"{{API_URL_API_DOTNET}}"
+							],
+							"path": [
+								"entrar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Nova Conta",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Email\":\"felipe@gmail.com\",\r\n    \"Password\":\"Senha@123\",\r\n    \"ConfirmPassword\":\"Senha@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL_API_DOTNET}}/nova-conta",
+							"host": [
+								"{{API_URL_API_DOTNET}}"
+							],
+							"path": [
+								"nova-conta"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Upload Csv",
+			"item": [
+				{
+					"name": "Upload Csv",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4MTllODQ4MC00MmJmLTQ1NTktYmY2Ni1iZjUzNjU2NmY4YmQiLCJlbWFpbCI6ImZlbGlwZS5mYXJpYXMucGhwQGdtYWlsLmNvbSIsImp0aSI6IjNlMWQyMmQwLWMwODMtNGQ2ZC1iYzlkLTdjODE2YWRkNDA0YyIsIm5iZiI6MTY0MzMxNzExNiwiaWF0IjoxNjQzMzE3MTE2LCJleHAiOjE2NDMzMjQzMTYsImlzcyI6IkFwaUp3dEJsb2dEb3RuZXRDb3JlNiIsImF1ZCI6Imh0dHBzOi8vbG9jYWxob3N0In0.E1RXX6EAmujW48m-GN2d-NpUv9C8w_VnuNuWuslm-uc",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "bearer",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Bearer}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "NomeArquivoEnviado",
+									"type": "file",
+									"src": "/C:/Users/3CON/Desktop/pessoas_2.csv"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL_API_DOTNET}}/arquivos",
+							"host": [
+								"{{API_URL_API_DOTNET}}"
+							],
+							"path": [
+								"arquivos"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Crud Post",
+			"item": [
+				{
+					"name": "Get Posts Pagination Offset Limit %buscar%",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{Bearer}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL_API_DOTNET}}/posts?offset=0&limit=2&buscar=tit",
+							"host": [
+								"{{API_URL_API_DOTNET}}"
+							],
+							"path": [
+								"posts"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "2"
+								},
+								{
+									"key": "buscar",
+									"value": "tit"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Listar Post pelo Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Bearer}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL_API_DOTNET}}/posts/1004",
+							"host": [
+								"{{API_URL_API_DOTNET}}"
+							],
+							"path": [
+								"posts",
+								"1004"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete post pelo id",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4MTllODQ4MC00MmJmLTQ1NTktYmY2Ni1iZjUzNjU2NmY4YmQiLCJlbWFpbCI6ImZlbGlwZS5mYXJpYXMucGhwQGdtYWlsLmNvbSIsImp0aSI6IjQyMzhmN2I5LTI4NzYtNDBkNi05YTdhLTkyZDkxM2Q2YzczYSIsIm5iZiI6MTY0MzMxNDQ5NCwiaWF0IjoxNjQzMzE0NDk0LCJleHAiOjE2NDMzMjE2OTQsImlzcyI6IkFwaUp3dEJsb2dEb3RuZXRDb3JlNiIsImF1ZCI6Imh0dHBzOi8vbG9jYWxob3N0In0.5bMz2NzbQl2CmawIozvi9F1A2Jk0_l4_pOxgeaEMWVE",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "bearer",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Bearer}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL_API_DOTNET}}/posts/4",
+							"host": [
+								"{{API_URL_API_DOTNET}}"
+							],
+							"path": [
+								"posts",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Adicionar Post",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4MTllODQ4MC00MmJmLTQ1NTktYmY2Ni1iZjUzNjU2NmY4YmQiLCJlbWFpbCI6ImZlbGlwZS5mYXJpYXMucGhwQGdtYWlsLmNvbSIsImp0aSI6IjNlMWQyMmQwLWMwODMtNGQ2ZC1iYzlkLTdjODE2YWRkNDA0YyIsIm5iZiI6MTY0MzMxNzExNiwiaWF0IjoxNjQzMzE3MTE2LCJleHAiOjE2NDMzMjQzMTYsImlzcyI6IkFwaUp3dEJsb2dEb3RuZXRDb3JlNiIsImF1ZCI6Imh0dHBzOi8vbG9jYWxob3N0In0.E1RXX6EAmujW48m-GN2d-NpUv9C8w_VnuNuWuslm-uc",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "bearer",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Bearer}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "Titulo",
+									"value": "titulo1",
+									"type": "text"
+								},
+								{
+									"key": "Descricao",
+									"value": "descrição1",
+									"type": "text"
+								},
+								{
+									"key": "Imagem",
+									"type": "file",
+									"src": "/C:/Users/3CON/Desktop/img1.jfif"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL_API_DOTNET}}/posts",
+							"host": [
+								"{{API_URL_API_DOTNET}}"
+							],
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Post",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Bearer}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "Id",
+									"value": "1004",
+									"type": "text"
+								},
+								{
+									"key": "Titulo",
+									"value": "titulo alterado",
+									"type": "text"
+								},
+								{
+									"key": "Descricao",
+									"value": "descrição alterada",
+									"type": "text"
+								},
+								{
+									"key": "Imagem",
+									"type": "file",
+									"src": "/C:/Users/3CON/Desktop/img1.jfif"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL_API_DOTNET}}/posts",
+							"host": [
+								"{{API_URL_API_DOTNET}}"
+							],
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "Bearer",
+			"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmNjg4N2Q1Ni1lMjQxLTQ1NmQtYTgyOC05YmJiODZiYWNhMGIiLCJlbWFpbCI6ImZlbGlwZUBnbWFpbC5jb20iLCJqdGkiOiJmN2VmYTJhMi05YmViLTQ1ZmUtYjAxNC1jODllZTFjZWFhZjAiLCJuYmYiOjE2NDk4NDg0MTAsImlhdCI6MTY0OTg0ODQxMCwiZXhwIjoxNjQ5ODU1NjEwLCJpc3MiOiJBcGlKd3RCbG9nRG90bmV0Q29yZTYiLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdCJ9.Lw-q6Hncm770uyJUbAwdnNYnR1upyQ1DMRrl1XGDwJc"
+		},
+		{
+			"key": "API_URL_API_DOTNET",
+			"value": "https://localhost:7124",
+			"type": "string"
+		}
+	]
+}

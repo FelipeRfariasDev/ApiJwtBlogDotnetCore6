@@ -2,7 +2,7 @@
 
 Criar uma API que implementa o crud de posts com os seguintes campos:
 
-- Id (PK - Inteiro)
+- Id (Int) Autoincrement
 - Titulo (String)
 - Descricao (String)
 - Imagem (File)
