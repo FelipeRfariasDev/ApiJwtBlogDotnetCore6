@@ -1038,7 +1038,7 @@ risk-hotspots > div > table > thead > tr > th:last-of-type > a:last-of-type {
 
 
 
-						var previousLogMessages = ['Coverage collected when tests finish. RunInParallel option true for immediate','Starting coverage - full details in FCC Output Pane','File synchronization 169 items, duration : 00:00:00.2740892','Run Coverlet (ApiCore.Tests)','Completed coverage for (ApiCore.Tests) : 00:00:10.0890103','Generating cobertura report','Cobertura report generation duration - 00:00:01.3926618','Generating html report','Html report generation duration - 00:00:00.9676124']
+						var previousLogMessages = ['See option RunMsCodeCoverage for a better ( Beta ) experience. View readme.','Coverage collected when tests finish. RunInParallel option true for immediate','Starting coverage - full details in FCC Output Pane','File synchronization 28 items, duration : 00:00:00.1062357','Run Coverlet (ApiCore.Tests)','Completed coverage for (ApiCore.Tests) : 00:00:06.4797127','Generating cobertura report','Cobertura report generation duration - 00:00:01.1995862','Generating html report','Html report generation duration - 00:00:00.9654337','See option RunMsCodeCoverage for a better ( Beta ) experience. View readme.','Coverage collected when tests finish. RunInParallel option true for immediate','Starting coverage - full details in FCC Output Pane','Run Coverlet (ApiCore.Tests)','Completed coverage for (ApiCore.Tests) : 00:00:04.8078549','Generating cobertura report','Cobertura report generation duration - 00:00:00.6206478','Generating html report','Html report generation duration - 00:00:00.8796828']
 
 						var coverageLogElement;
 
@@ -1088,19 +1088,19 @@ risk-hotspots > div > table > thead > tr > th:last-of-type > a:last-of-type {
 
 						}
 
-						function addLogMessageElement(message){
+						function addExternalMessage(logElement,message,matchLinkPart, externalFn){
 
-							var logElement = document.createElement('div');
+							var matched = false;
 
-							var fccOutputPanePart = 'FCC Output Pane';
+							var startIndex = message.indexOf(matchLinkPart);
 
-							var fccOutputPaneStartIndex = message.indexOf(fccOutputPanePart);
+							if(startIndex != -1){
 
-							if(fccOutputPaneStartIndex != -1){
+								matched = true;
 
-								if(fccOutputPaneStartIndex != 0){
+								if(startIndex != 0){
 
-									var before = message.substring(0,fccOutputPaneStartIndex);
+									var before = message.substring(0,startIndex);
 
 									var beforeEl = document.createElement('span');
 
@@ -1110,23 +1110,23 @@ risk-hotspots > div > table > thead > tr > th:last-of-type > a:last-of-type {
 
 								}
 
-								var openFccPanelLink = document.createElement('a');
+								var externalLink = document.createElement('a');
 
-								openFccPanelLink.innerText = fccOutputPanePart;
+								externalLink.innerText = matchLinkPart;
 
-								openFccPanelLink.href = '#';
+								externalLink.href = '#';
 
-								openFccPanelLink.onclick = function(){
+								externalLink.onclick = function(){
 
-									window.external.ShowFCCOutputPane();
+									window.external[externalFn]();
 
 									return false; 
 
 								}
 
-								logElement.appendChild(openFccPanelLink);
+								logElement.appendChild(externalLink);
 
-								var after = message.substring(fccOutputPaneStartIndex + fccOutputPanePart.length);
+								var after = message.substring(startIndex + matchLinkPart.length);
 
 								if(after != ''){
 
@@ -1138,7 +1138,25 @@ risk-hotspots > div > table > thead > tr > th:last-of-type > a:last-of-type {
 
 								}
 
-							}else{
+							}
+
+							return matched;
+
+						}
+
+						function addLogMessageElement(message){
+
+							var logElement = document.createElement('div');
+
+							var matched = addExternalMessage(logElement,message,'FCC Output Pane','ShowFCCOutputPane');
+
+							if(!matched){
+
+								matched = addExternalMessage(logElement,message,'View readme','ReadReadMe');
+
+							}
+
+							if(!matched){
 
 								logElement.innerText = message;
 
@@ -1240,31 +1258,31 @@ risk-hotspots > div > table > thead > tr > th:last-of-type > a:last-of-type {
 
 <tbody>
 
-<tr style="display:none"><th>Generated on:</th><td>23/03/2022 - 21:00:45</td></tr>
+<tr style="display:none"><th>Generated on:</th><td>13/04/2022 - 09:18:38</td></tr>
 
 <tr style="display:none"><th>Parser:</th><td>CoberturaParser</td></tr>
 
-<tr><th>Assemblies:</th><td>2</td></tr>
+<tr><th>Assemblies:</th><td>5</td></tr>
 
-<tr><th>Classes:</th><td>27</td></tr>
+<tr><th>Classes:</th><td>28</td></tr>
 
-<tr><th>Files:</th><td>27</td></tr>
+<tr><th>Files:</th><td>28</td></tr>
 
-<tr><th>Covered lines:</th><td>67</td></tr>
+<tr><th>Covered lines:</th><td>66</td></tr>
 
-<tr><th>Uncovered lines:</th><td>406</td></tr>
+<tr><th>Uncovered lines:</th><td>448</td></tr>
 
-<tr><th>Coverable lines:</th><td>473</td></tr>
+<tr><th>Coverable lines:</th><td>514</td></tr>
 
-<tr><th>Total lines:</th><td>933</td></tr>
+<tr><th>Total lines:</th><td>1005</td></tr>
 
-<tr><th>Line coverage:</th><td>14.1% (67 of 473)</td></tr>
+<tr><th>Line coverage:</th><td>12.8% (66 of 514)</td></tr>
 
 <tr><th>Covered branches:</th><td>1</td></tr>
 
-<tr><th>Total branches:</th><td>32</td></tr>
+<tr><th>Total branches:</th><td>34</td></tr>
 
-<tr><th>Branch coverage:</th><td>3.1% (1 of 32)</td></tr>
+<tr><th>Branch coverage:</th><td>2.9% (1 of 34)</td></tr>
 
 </tbody>
 
@@ -1314,63 +1332,71 @@ risk-hotspots > div > table > thead > tr > th:last-of-type > a:last-of-type {
 
 <tbody>
 
-<tr><th>ApiCore.Tests</th><th class="right">38</th><th class="right">1</th><th class="right">39</th><th class="right">97</th><th title="LineCoverage: 38/39" class="right">97.4%</th><th><table class="coverage"><tr><td class="green covered97">&nbsp;</td><td class="red covered3">&nbsp;</td></tr></table></th><th class="right">0</th><th class="right">0</th><th class="right" title="-"></th><th><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></th></tr>
+<tr><th>ApiCore.Tests</th><th class="right">38</th><th class="right">1</th><th class="right">39</th><th class="right">92</th><th title="LineCoverage: 38/39" class="right">97.4%</th><th><table class="coverage"><tr><td class="green covered97">&nbsp;</td><td class="red covered3">&nbsp;</td></tr></table></th><th class="right">0</th><th class="right">0</th><th class="right" title="-"></th><th><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></th></tr>
 
 <tr><td><a href="ApiCore.Tests_Calculadora.html">ApiCore.Tests.Calculadora</a></td><td class="right">3</td><td class="right">0</td><td class="right">3</td><td class="right">16</td><td title="LineCoverage: 3/3" class="right">100%</td><td><table class="coverage"><tr><td class="green covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
 
-<tr><td><a href="ApiCore.Tests_ApiCoreFixture.html">ApiCore.Tests.Fixture.ApiCoreFixture</a></td><td class="right">11</td><td class="right">0</td><td class="right">11</td><td class="right">29</td><td title="LineCoverage: 11/11" class="right">100%</td><td><table class="coverage"><tr><td class="green covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="ApiCore.Tests_ApiCoreFixture.html">ApiCore.Tests.Fixture.ApiCoreFixture</a></td><td class="right">11</td><td class="right">0</td><td class="right">11</td><td class="right">24</td><td title="LineCoverage: 11/11" class="right">100%</td><td><table class="coverage"><tr><td class="green covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
 
 <tr><td><a href="ApiCore.Tests_PostTests.html">ApiCore.Tests.PostTests</a></td><td class="right">24</td><td class="right">0</td><td class="right">24</td><td class="right">48</td><td title="LineCoverage: 24/24" class="right">100%</td><td><table class="coverage"><tr><td class="green covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
 
 <tr><td><a href="ApiCore.Tests_AutoGeneratedProgram.html">AutoGeneratedProgram</a></td><td class="right">0</td><td class="right">1</td><td class="right">1</td><td class="right">4</td><td title="LineCoverage: 0/1" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
 
-<tr><th>ApiJwtBlogDotnetCore6</th><th class="right">29</th><th class="right">405</th><th class="right">434</th><th class="right">836</th><th title="LineCoverage: 29/434" class="right">6.6%</th><th><table class="coverage"><tr><td class="green covered7">&nbsp;</td><td class="red covered93">&nbsp;</td></tr></table></th><th class="right">1</th><th class="right">32</th><th class="right" title="1/32">3.1%</th><th><table class="coverage"><tr><td class="green covered3">&nbsp;</td><td class="red covered97">&nbsp;</td></tr></table></th></tr>
+<tr><th>ApiJwtBlogDotnetCore6</th><th class="right">0</th><th class="right">335</th><th class="right">335</th><th class="right">595</th><th title="LineCoverage: 0/335" class="right">0%</th><th><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></th><th class="right">0</th><th class="right">30</th><th class="right" title="0/30">0%</th><th><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></th></tr>
 
 <tr><td><a href="ApiJwtBlogDotnetCore6_AutoMapperProfile.html">ApiJwtBlogDotnetCore6.AutoMapper.AutoMapperProfile</a></td><td class="right">0</td><td class="right">3</td><td class="right">3</td><td class="right">13</td><td title="LineCoverage: 0/3" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
 
 <tr><td><a href="ApiJwtBlogDotnetCore6_AppSettings.html">ApiJwtBlogDotnetCore6.Configuration.AppSettings</a></td><td class="right">0</td><td class="right">4</td><td class="right">4</td><td class="right">10</td><td title="LineCoverage: 0/4" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
 
-<tr><td><a href="ApiJwtBlogDotnetCore6_IdentityConfig.html">ApiJwtBlogDotnetCore6.Configuration.IdentityConfig</a></td><td class="right">0</td><td class="right">32</td><td class="right">32</td><td class="right">56</td><td title="LineCoverage: 0/32" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="ApiJwtBlogDotnetCore6_IdentityConfig.html">ApiJwtBlogDotnetCore6.Configuration.IdentityConfig</a></td><td class="right">0</td><td class="right">32</td><td class="right">32</td><td class="right">55</td><td title="LineCoverage: 0/32" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
 
 <tr><td><a href="ApiJwtBlogDotnetCore6_ArquivosController.html">ApiJwtBlogDotnetCore6.Controllers.ArquivosController</a></td><td class="right">0</td><td class="right">48</td><td class="right">48</td><td class="right">84</td><td title="LineCoverage: 0/48" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">8</td><td class="right" title="0/8">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td></tr>
 
 <tr><td><a href="ApiJwtBlogDotnetCore6_AuthController.html">ApiJwtBlogDotnetCore6.Controllers.AuthController</a></td><td class="right">0</td><td class="right">75</td><td class="right">75</td><td class="right">122</td><td title="LineCoverage: 0/75" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">12</td><td class="right" title="0/12">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td></tr>
 
-<tr><td><a href="ApiJwtBlogDotnetCore6_PostsController.html">ApiJwtBlogDotnetCore6.Controllers.PostsController</a></td><td class="right">0</td><td class="right">91</td><td class="right">91</td><td class="right">179</td><td title="LineCoverage: 0/91" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">4</td><td class="right" title="0/4">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td></tr>
-
-<tr><td><a href="ApiJwtBlogDotnetCore6_AutenticacaoContext.html">ApiJwtBlogDotnetCore6.Data.AutenticacaoContext</a></td><td class="right">16</td><td class="right">14</td><td class="right">30</td><td class="right">51</td><td title="LineCoverage: 16/30" class="right">53.3%</td><td><table class="coverage"><tr><td class="green covered53">&nbsp;</td><td class="red covered47">&nbsp;</td></tr></table></td><td class="right">1</td><td class="right">2</td><td class="right" title="1/2">50%</td><td><table class="coverage"><tr><td class="green covered50">&nbsp;</td><td class="red covered50">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="ApiJwtBlogDotnetCore6_PostsController.html">ApiJwtBlogDotnetCore6.Controllers.PostsController</a></td><td class="right">0</td><td class="right">125</td><td class="right">125</td><td class="right">228</td><td title="LineCoverage: 0/125" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">6</td><td class="right" title="0/6">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td></tr>
 
 <tr><td><a href="ApiJwtBlogDotnetCore6_IdentityMensagensPortugues.html">ApiJwtBlogDotnetCore6.IdentityConfig.IdentityMensagensPortugues</a></td><td class="right">0</td><td class="right">20</td><td class="right">20</td><td class="right">28</td><td title="LineCoverage: 0/20" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
 
-<tr><td><a href="ApiJwtBlogDotnetCore6_Arquivos.html">ApiJwtBlogDotnetCore6.Models.Arquivos</a></td><td class="right">0</td><td class="right">3</td><td class="right">3</td><td class="right">9</td><td title="LineCoverage: 0/3" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="ApiJwtBlogDotnetCore6_Program.html">Program</a></td><td class="right">0</td><td class="right">28</td><td class="right">28</td><td class="right">55</td><td title="LineCoverage: 0/28" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">4</td><td class="right" title="0/4">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td></tr>
 
-<tr><td><a href="ApiJwtBlogDotnetCore6_Email.html">ApiJwtBlogDotnetCore6.Models.Email</a></td><td class="right">0</td><td class="right">11</td><td class="right">11</td><td class="right">17</td><td title="LineCoverage: 0/11" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
+<tr><th>Blog.Application</th><th class="right">0</th><th class="right">70</th><th class="right">70</th><th class="right">178</th><th title="LineCoverage: 0/70" class="right">0%</th><th><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></th><th class="right">0</th><th class="right">2</th><th class="right" title="0/2">0%</th><th><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></th></tr>
 
-<tr><td><a href="ApiJwtBlogDotnetCore6_EmailAddress.html">ApiJwtBlogDotnetCore6.Models.EmailAddress</a></td><td class="right">0</td><td class="right">6</td><td class="right">6</td><td class="right">12</td><td title="LineCoverage: 0/6" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="Blog.Application_EmailServices.html">Blog.Application.AppServices.EmailServices</a></td><td class="right">0</td><td class="right">39</td><td class="right">39</td><td class="right">65</td><td title="LineCoverage: 0/39" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">2</td><td class="right" title="0/2">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td></tr>
 
-<tr><td><a href="ApiJwtBlogDotnetCore6_Itens.html">ApiJwtBlogDotnetCore6.Models.Itens</a></td><td class="right">0</td><td class="right">5</td><td class="right">5</td><td class="right">11</td><td title="LineCoverage: 0/5" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="Blog.Application_PostAppService.html">Blog.Application.AppServices.PostAppService</a></td><td class="right">0</td><td class="right">7</td><td class="right">7</td><td class="right">20</td><td title="LineCoverage: 0/7" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
 
-<tr><td><a href="ApiJwtBlogDotnetCore6_Posts.html">ApiJwtBlogDotnetCore6.Models.Posts</a></td><td class="right">4</td><td class="right">1</td><td class="right">5</td><td class="right">11</td><td title="LineCoverage: 4/5" class="right">80%</td><td><table class="coverage"><tr><td class="green covered80">&nbsp;</td><td class="red covered20">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="Blog.Application_ArquivoViewModel.html">Blog.Application.ViewModels.ArquivoViewModel</a></td><td class="right">0</td><td class="right">3</td><td class="right">3</td><td class="right">11</td><td title="LineCoverage: 0/3" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
 
-<tr><td><a href="ApiJwtBlogDotnetCore6_PostRepository.html">ApiJwtBlogDotnetCore6.Repositories.PostRepository</a></td><td class="right">9</td><td class="right">0</td><td class="right">9</td><td class="right">22</td><td title="LineCoverage: 9/9" class="right">100%</td><td><table class="coverage"><tr><td class="green covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="Blog.Application_ClaimViewModel.html">Blog.Application.ViewModels.ClaimViewModel</a></td><td class="right">0</td><td class="right">2</td><td class="right">2</td><td class="right">8</td><td title="LineCoverage: 0/2" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
 
-<tr><td><a href="ApiJwtBlogDotnetCore6_EmailServices.html">ApiJwtBlogDotnetCore6.Services.EmailServices</a></td><td class="right">0</td><td class="right">38</td><td class="right">38</td><td class="right">63</td><td title="LineCoverage: 0/38" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">2</td><td class="right" title="0/2">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="Blog.Application_LoginResponseViewModel.html">Blog.Application.ViewModels.LoginResponseViewModel</a></td><td class="right">0</td><td class="right">3</td><td class="right">3</td><td class="right">9</td><td title="LineCoverage: 0/3" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
 
-<tr><td><a href="ApiJwtBlogDotnetCore6_ClaimViewModel.html">ApiJwtBlogDotnetCore6.ViewModels.ClaimViewModel</a></td><td class="right">0</td><td class="right">2</td><td class="right">2</td><td class="right">8</td><td title="LineCoverage: 0/2" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="Blog.Application_LoginUserViewModel.html">Blog.Application.ViewModels.LoginUserViewModel</a></td><td class="right">0</td><td class="right">2</td><td class="right">2</td><td class="right">15</td><td title="LineCoverage: 0/2" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
 
-<tr><td><a href="ApiJwtBlogDotnetCore6_LoginResponseViewModel.html">ApiJwtBlogDotnetCore6.ViewModels.LoginResponseViewModel</a></td><td class="right">0</td><td class="right">3</td><td class="right">3</td><td class="right">9</td><td title="LineCoverage: 0/3" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="Blog.Application_PostsViewModel.html">Blog.Application.ViewModels.PostsViewModel</a></td><td class="right">0</td><td class="right">8</td><td class="right">8</td><td class="right">22</td><td title="LineCoverage: 0/8" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
 
-<tr><td><a href="ApiJwtBlogDotnetCore6_LoginUserViewModel.html">ApiJwtBlogDotnetCore6.ViewModels.LoginUserViewModel</a></td><td class="right">0</td><td class="right">2</td><td class="right">2</td><td class="right">15</td><td title="LineCoverage: 0/2" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="Blog.Application_RegisterUserViewModel.html">Blog.Application.ViewModels.RegisterUserViewModel</a></td><td class="right">0</td><td class="right">3</td><td class="right">3</td><td class="right">19</td><td title="LineCoverage: 0/3" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
 
-<tr><td><a href="ApiJwtBlogDotnetCore6_PostsViewModel.html">ApiJwtBlogDotnetCore6.ViewModels.PostsViewModel</a></td><td class="right">0</td><td class="right">8</td><td class="right">8</td><td class="right">21</td><td title="LineCoverage: 0/8" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="Blog.Application_UserTokenViewModel.html">Blog.Application.ViewModels.UserTokenViewModel</a></td><td class="right">0</td><td class="right">3</td><td class="right">3</td><td class="right">9</td><td title="LineCoverage: 0/3" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
 
-<tr><td><a href="ApiJwtBlogDotnetCore6_PostViewModel.html">ApiJwtBlogDotnetCore6.ViewModels.PostViewModel</a></td><td class="right">0</td><td class="right">7</td><td class="right">7</td><td class="right">19</td><td title="LineCoverage: 0/7" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
+<tr><th>Blog.Domain</th><th class="right">4</th><th class="right">25</th><th class="right">29</th><th class="right">60</th><th title="LineCoverage: 4/29" class="right">13.7%</th><th><table class="coverage"><tr><td class="green covered14">&nbsp;</td><td class="red covered86">&nbsp;</td></tr></table></th><th class="right">0</th><th class="right">0</th><th class="right" title="-"></th><th><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></th></tr>
 
-<tr><td><a href="ApiJwtBlogDotnetCore6_RegisterUserViewModel.html">ApiJwtBlogDotnetCore6.ViewModels.RegisterUserViewModel</a></td><td class="right">0</td><td class="right">3</td><td class="right">3</td><td class="right">19</td><td title="LineCoverage: 0/3" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="Blog.Domain_Arquivos.html">Blog.Domain.Entities.Arquivos</a></td><td class="right">0</td><td class="right">2</td><td class="right">2</td><td class="right">9</td><td title="LineCoverage: 0/2" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
 
-<tr><td><a href="ApiJwtBlogDotnetCore6_UserTokenViewModel.html">ApiJwtBlogDotnetCore6.ViewModels.UserTokenViewModel</a></td><td class="right">0</td><td class="right">3</td><td class="right">3</td><td class="right">9</td><td title="LineCoverage: 0/3" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="Blog.Domain_Itens.html">Blog.Domain.Entities.Itens</a></td><td class="right">0</td><td class="right">5</td><td class="right">5</td><td class="right">11</td><td title="LineCoverage: 0/5" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
 
-<tr><td><a href="ApiJwtBlogDotnetCore6_Program.html">Program</a></td><td class="right">0</td><td class="right">26</td><td class="right">26</td><td class="right">48</td><td title="LineCoverage: 0/26" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">4</td><td class="right" title="0/4">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td></tr>
+<tr><td><a href="Blog.Domain_Posts.html">Blog.Domain.Entities.Posts</a></td><td class="right">4</td><td class="right">1</td><td class="right">5</td><td class="right">11</td><td title="LineCoverage: 4/5" class="right">80%</td><td><table class="coverage"><tr><td class="green covered80">&nbsp;</td><td class="red covered20">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
+
+<tr><td><a href="Blog.Domain_Email.html">Blog.Domain.NotMapped.Email</a></td><td class="right">0</td><td class="right">11</td><td class="right">11</td><td class="right">17</td><td title="LineCoverage: 0/11" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
+
+<tr><td><a href="Blog.Domain_EmailAddress.html">Blog.Domain.NotMapped.EmailAddress</a></td><td class="right">0</td><td class="right">6</td><td class="right">6</td><td class="right">12</td><td title="LineCoverage: 0/6" class="right">0%</td><td><table class="coverage"><tr><td class="red covered100">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
+
+<tr><th>Blog.Infra</th><th class="right">24</th><th class="right">17</th><th class="right">41</th><th class="right">80</th><th title="LineCoverage: 24/41" class="right">58.5%</th><th><table class="coverage"><tr><td class="green covered58">&nbsp;</td><td class="red covered42">&nbsp;</td></tr></table></th><th class="right">1</th><th class="right">2</th><th class="right" title="1/2">50%</th><th><table class="coverage"><tr><td class="green covered50">&nbsp;</td><td class="red covered50">&nbsp;</td></tr></table></th></tr>
+
+<tr><td><a href="Blog.Infra_AutenticacaoContext.html">Blog.Infra.Context.AutenticacaoContext</a></td><td class="right">15</td><td class="right">14</td><td class="right">29</td><td class="right">53</td><td title="LineCoverage: 15/29" class="right">51.7%</td><td><table class="coverage"><tr><td class="green covered52">&nbsp;</td><td class="red covered48">&nbsp;</td></tr></table></td><td class="right">1</td><td class="right">2</td><td class="right" title="1/2">50%</td><td><table class="coverage"><tr><td class="green covered50">&nbsp;</td><td class="red covered50">&nbsp;</td></tr></table></td></tr>
+
+<tr><td><a href="Blog.Infra_PostRepository.html">Blog.Infra.Repositories.PostRepository</a></td><td class="right">9</td><td class="right">3</td><td class="right">12</td><td class="right">27</td><td title="LineCoverage: 9/12" class="right">75%</td><td><table class="coverage"><tr><td class="green covered75">&nbsp;</td><td class="red covered25">&nbsp;</td></tr></table></td><td class="right">0</td><td class="right">0</td><td class="right" title="-"></td><td><table class="coverage"><tr><td class="gray covered100">&nbsp;</td></tr></table></td></tr>
 
 </tbody>
 
@@ -1378,7 +1404,7 @@ risk-hotspots > div > table > thead > tr > th:last-of-type > a:last-of-type {
 
 </coverage-info>
 
-<div class="footer" style="display:none">Generated by: ReportGenerator 4.7.1.0<br>23/03/2022 - 21:00:45<br><a href="https://github.com/danielpalme/ReportGenerator">GitHub</a> | <a href="http://www.palmmedia.de">www.palmmedia.de</a></div></div></div>
+<div class="footer" style="display:none">Generated by: ReportGenerator 4.7.1.0<br>13/04/2022 - 09:18:38<br><a href="https://github.com/danielpalme/ReportGenerator">GitHub</a> | <a href="http://www.palmmedia.de">www.palmmedia.de</a></div></div></div>
 
 <script type="text/javascript">/* <![CDATA[ */ /* Chartist.js 0.11.0
 
@@ -1874,7 +1900,7 @@ var assemblies = [
 
         "cal": 11,
 
-        "tl": 29,
+        "tl": 24,
 
         "ct": "LineCoverage",
 
@@ -2004,7 +2030,7 @@ var assemblies = [
 
         "cal": 32,
 
-        "tl": 56,
+        "tl": 55,
 
         "ct": "LineCoverage",
 
@@ -2090,11 +2116,11 @@ var assemblies = [
 
         "cl": 0,
 
-        "ucl": 91,
+        "ucl": 125,
 
-        "cal": 91,
+        "cal": 125,
 
-        "tl": 179,
+        "tl": 228,
 
         "ct": "LineCoverage",
 
@@ -2102,37 +2128,7 @@ var assemblies = [
 
         "cb": 0,
 
-        "tb": 4,
-
-        "lch": [],
-
-        "bch": [],
-
-        "hc": []
-
-      },
-
-      {
-
-        "name": "ApiJwtBlogDotnetCore6.Data.AutenticacaoContext",
-
-        "rp": "#ApiJwtBlogDotnetCore6!ApiJwtBlogDotnetCore6.Data.AutenticacaoContext.html",
-
-        "cl": 16,
-
-        "ucl": 14,
-
-        "cal": 30,
-
-        "tl": 51,
-
-        "ct": "LineCoverage",
-
-        "mc": "-",
-
-        "cb": 1,
-
-        "tb": 2,
+        "tb": 6,
 
         "lch": [],
 
@@ -2174,47 +2170,17 @@ var assemblies = [
 
       {
 
-        "name": "ApiJwtBlogDotnetCore6.Models.Arquivos",
+        "name": "Program",
 
-        "rp": "#ApiJwtBlogDotnetCore6!ApiJwtBlogDotnetCore6.Models.Arquivos.html",
-
-        "cl": 0,
-
-        "ucl": 3,
-
-        "cal": 3,
-
-        "tl": 9,
-
-        "ct": "LineCoverage",
-
-        "mc": "-",
-
-        "cb": 0,
-
-        "tb": 0,
-
-        "lch": [],
-
-        "bch": [],
-
-        "hc": []
-
-      },
-
-      {
-
-        "name": "ApiJwtBlogDotnetCore6.Models.Email",
-
-        "rp": "#ApiJwtBlogDotnetCore6!ApiJwtBlogDotnetCore6.Models.Email.html",
+        "rp": "#ApiJwtBlogDotnetCore6!Program.html",
 
         "cl": 0,
 
-        "ucl": 11,
+        "ucl": 28,
 
-        "cal": 11,
+        "cal": 28,
 
-        "tl": 17,
+        "tl": 55,
 
         "ct": "LineCoverage",
 
@@ -2222,7 +2188,7 @@ var assemblies = [
 
         "cb": 0,
 
-        "tb": 0,
+        "tb": 4,
 
         "lch": [],
 
@@ -2230,141 +2196,31 @@ var assemblies = [
 
         "hc": []
 
-      },
+      }
+
+    ]
+
+  },
+
+  {
+
+    "name": "Blog.Application",
+
+    "classes": [
 
       {
 
-        "name": "ApiJwtBlogDotnetCore6.Models.EmailAddress",
+        "name": "Blog.Application.AppServices.EmailServices",
 
-        "rp": "#ApiJwtBlogDotnetCore6!ApiJwtBlogDotnetCore6.Models.EmailAddress.html",
+        "rp": "#Blog.Application!Blog.Application.AppServices.EmailServices.html",
 
         "cl": 0,
 
-        "ucl": 6,
+        "ucl": 39,
 
-        "cal": 6,
+        "cal": 39,
 
-        "tl": 12,
-
-        "ct": "LineCoverage",
-
-        "mc": "-",
-
-        "cb": 0,
-
-        "tb": 0,
-
-        "lch": [],
-
-        "bch": [],
-
-        "hc": []
-
-      },
-
-      {
-
-        "name": "ApiJwtBlogDotnetCore6.Models.Itens",
-
-        "rp": "#ApiJwtBlogDotnetCore6!ApiJwtBlogDotnetCore6.Models.Itens.html",
-
-        "cl": 0,
-
-        "ucl": 5,
-
-        "cal": 5,
-
-        "tl": 11,
-
-        "ct": "LineCoverage",
-
-        "mc": "-",
-
-        "cb": 0,
-
-        "tb": 0,
-
-        "lch": [],
-
-        "bch": [],
-
-        "hc": []
-
-      },
-
-      {
-
-        "name": "ApiJwtBlogDotnetCore6.Models.Posts",
-
-        "rp": "#ApiJwtBlogDotnetCore6!ApiJwtBlogDotnetCore6.Models.Posts.html",
-
-        "cl": 4,
-
-        "ucl": 1,
-
-        "cal": 5,
-
-        "tl": 11,
-
-        "ct": "LineCoverage",
-
-        "mc": "-",
-
-        "cb": 0,
-
-        "tb": 0,
-
-        "lch": [],
-
-        "bch": [],
-
-        "hc": []
-
-      },
-
-      {
-
-        "name": "ApiJwtBlogDotnetCore6.Repositories.PostRepository",
-
-        "rp": "#ApiJwtBlogDotnetCore6!ApiJwtBlogDotnetCore6.Repositories.PostRepository.html",
-
-        "cl": 9,
-
-        "ucl": 0,
-
-        "cal": 9,
-
-        "tl": 22,
-
-        "ct": "LineCoverage",
-
-        "mc": "-",
-
-        "cb": 0,
-
-        "tb": 0,
-
-        "lch": [],
-
-        "bch": [],
-
-        "hc": []
-
-      },
-
-      {
-
-        "name": "ApiJwtBlogDotnetCore6.Services.EmailServices",
-
-        "rp": "#ApiJwtBlogDotnetCore6!ApiJwtBlogDotnetCore6.Services.EmailServices.html",
-
-        "cl": 0,
-
-        "ucl": 38,
-
-        "cal": 38,
-
-        "tl": 63,
+        "tl": 65,
 
         "ct": "LineCoverage",
 
@@ -2384,9 +2240,69 @@ var assemblies = [
 
       {
 
-        "name": "ApiJwtBlogDotnetCore6.ViewModels.ClaimViewModel",
+        "name": "Blog.Application.AppServices.PostAppService",
 
-        "rp": "#ApiJwtBlogDotnetCore6!ApiJwtBlogDotnetCore6.ViewModels.ClaimViewModel.html",
+        "rp": "#Blog.Application!Blog.Application.AppServices.PostAppService.html",
+
+        "cl": 0,
+
+        "ucl": 7,
+
+        "cal": 7,
+
+        "tl": 20,
+
+        "ct": "LineCoverage",
+
+        "mc": "-",
+
+        "cb": 0,
+
+        "tb": 0,
+
+        "lch": [],
+
+        "bch": [],
+
+        "hc": []
+
+      },
+
+      {
+
+        "name": "Blog.Application.ViewModels.ArquivoViewModel",
+
+        "rp": "#Blog.Application!Blog.Application.ViewModels.ArquivoViewModel.html",
+
+        "cl": 0,
+
+        "ucl": 3,
+
+        "cal": 3,
+
+        "tl": 11,
+
+        "ct": "LineCoverage",
+
+        "mc": "-",
+
+        "cb": 0,
+
+        "tb": 0,
+
+        "lch": [],
+
+        "bch": [],
+
+        "hc": []
+
+      },
+
+      {
+
+        "name": "Blog.Application.ViewModels.ClaimViewModel",
+
+        "rp": "#Blog.Application!Blog.Application.ViewModels.ClaimViewModel.html",
 
         "cl": 0,
 
@@ -2414,9 +2330,9 @@ var assemblies = [
 
       {
 
-        "name": "ApiJwtBlogDotnetCore6.ViewModels.LoginResponseViewModel",
+        "name": "Blog.Application.ViewModels.LoginResponseViewModel",
 
-        "rp": "#ApiJwtBlogDotnetCore6!ApiJwtBlogDotnetCore6.ViewModels.LoginResponseViewModel.html",
+        "rp": "#Blog.Application!Blog.Application.ViewModels.LoginResponseViewModel.html",
 
         "cl": 0,
 
@@ -2444,9 +2360,9 @@ var assemblies = [
 
       {
 
-        "name": "ApiJwtBlogDotnetCore6.ViewModels.LoginUserViewModel",
+        "name": "Blog.Application.ViewModels.LoginUserViewModel",
 
-        "rp": "#ApiJwtBlogDotnetCore6!ApiJwtBlogDotnetCore6.ViewModels.LoginUserViewModel.html",
+        "rp": "#Blog.Application!Blog.Application.ViewModels.LoginUserViewModel.html",
 
         "cl": 0,
 
@@ -2474,9 +2390,9 @@ var assemblies = [
 
       {
 
-        "name": "ApiJwtBlogDotnetCore6.ViewModels.PostsViewModel",
+        "name": "Blog.Application.ViewModels.PostsViewModel",
 
-        "rp": "#ApiJwtBlogDotnetCore6!ApiJwtBlogDotnetCore6.ViewModels.PostsViewModel.html",
+        "rp": "#Blog.Application!Blog.Application.ViewModels.PostsViewModel.html",
 
         "cl": 0,
 
@@ -2484,7 +2400,7 @@ var assemblies = [
 
         "cal": 8,
 
-        "tl": 21,
+        "tl": 22,
 
         "ct": "LineCoverage",
 
@@ -2504,39 +2420,9 @@ var assemblies = [
 
       {
 
-        "name": "ApiJwtBlogDotnetCore6.ViewModels.PostViewModel",
+        "name": "Blog.Application.ViewModels.RegisterUserViewModel",
 
-        "rp": "#ApiJwtBlogDotnetCore6!ApiJwtBlogDotnetCore6.ViewModels.PostViewModel.html",
-
-        "cl": 0,
-
-        "ucl": 7,
-
-        "cal": 7,
-
-        "tl": 19,
-
-        "ct": "LineCoverage",
-
-        "mc": "-",
-
-        "cb": 0,
-
-        "tb": 0,
-
-        "lch": [],
-
-        "bch": [],
-
-        "hc": []
-
-      },
-
-      {
-
-        "name": "ApiJwtBlogDotnetCore6.ViewModels.RegisterUserViewModel",
-
-        "rp": "#ApiJwtBlogDotnetCore6!ApiJwtBlogDotnetCore6.ViewModels.RegisterUserViewModel.html",
+        "rp": "#Blog.Application!Blog.Application.ViewModels.RegisterUserViewModel.html",
 
         "cl": 0,
 
@@ -2564,9 +2450,9 @@ var assemblies = [
 
       {
 
-        "name": "ApiJwtBlogDotnetCore6.ViewModels.UserTokenViewModel",
+        "name": "Blog.Application.ViewModels.UserTokenViewModel",
 
-        "rp": "#ApiJwtBlogDotnetCore6!ApiJwtBlogDotnetCore6.ViewModels.UserTokenViewModel.html",
+        "rp": "#Blog.Application!Blog.Application.ViewModels.UserTokenViewModel.html",
 
         "cl": 0,
 
@@ -2590,21 +2476,31 @@ var assemblies = [
 
         "hc": []
 
-      },
+      }
+
+    ]
+
+  },
+
+  {
+
+    "name": "Blog.Domain",
+
+    "classes": [
 
       {
 
-        "name": "Program",
+        "name": "Blog.Domain.Entities.Arquivos",
 
-        "rp": "#ApiJwtBlogDotnetCore6!Program.html",
+        "rp": "#Blog.Domain!Blog.Domain.Entities.Arquivos.html",
 
         "cl": 0,
 
-        "ucl": 26,
+        "ucl": 2,
 
-        "cal": 26,
+        "cal": 2,
 
-        "tl": 48,
+        "tl": 9,
 
         "ct": "LineCoverage",
 
@@ -2612,7 +2508,197 @@ var assemblies = [
 
         "cb": 0,
 
-        "tb": 4,
+        "tb": 0,
+
+        "lch": [],
+
+        "bch": [],
+
+        "hc": []
+
+      },
+
+      {
+
+        "name": "Blog.Domain.Entities.Itens",
+
+        "rp": "#Blog.Domain!Blog.Domain.Entities.Itens.html",
+
+        "cl": 0,
+
+        "ucl": 5,
+
+        "cal": 5,
+
+        "tl": 11,
+
+        "ct": "LineCoverage",
+
+        "mc": "-",
+
+        "cb": 0,
+
+        "tb": 0,
+
+        "lch": [],
+
+        "bch": [],
+
+        "hc": []
+
+      },
+
+      {
+
+        "name": "Blog.Domain.Entities.Posts",
+
+        "rp": "#Blog.Domain!Blog.Domain.Entities.Posts.html",
+
+        "cl": 4,
+
+        "ucl": 1,
+
+        "cal": 5,
+
+        "tl": 11,
+
+        "ct": "LineCoverage",
+
+        "mc": "-",
+
+        "cb": 0,
+
+        "tb": 0,
+
+        "lch": [],
+
+        "bch": [],
+
+        "hc": []
+
+      },
+
+      {
+
+        "name": "Blog.Domain.NotMapped.Email",
+
+        "rp": "#Blog.Domain!Blog.Domain.NotMapped.Email.html",
+
+        "cl": 0,
+
+        "ucl": 11,
+
+        "cal": 11,
+
+        "tl": 17,
+
+        "ct": "LineCoverage",
+
+        "mc": "-",
+
+        "cb": 0,
+
+        "tb": 0,
+
+        "lch": [],
+
+        "bch": [],
+
+        "hc": []
+
+      },
+
+      {
+
+        "name": "Blog.Domain.NotMapped.EmailAddress",
+
+        "rp": "#Blog.Domain!Blog.Domain.NotMapped.EmailAddress.html",
+
+        "cl": 0,
+
+        "ucl": 6,
+
+        "cal": 6,
+
+        "tl": 12,
+
+        "ct": "LineCoverage",
+
+        "mc": "-",
+
+        "cb": 0,
+
+        "tb": 0,
+
+        "lch": [],
+
+        "bch": [],
+
+        "hc": []
+
+      }
+
+    ]
+
+  },
+
+  {
+
+    "name": "Blog.Infra",
+
+    "classes": [
+
+      {
+
+        "name": "Blog.Infra.Context.AutenticacaoContext",
+
+        "rp": "#Blog.Infra!Blog.Infra.Context.AutenticacaoContext.html",
+
+        "cl": 15,
+
+        "ucl": 14,
+
+        "cal": 29,
+
+        "tl": 53,
+
+        "ct": "LineCoverage",
+
+        "mc": "-",
+
+        "cb": 1,
+
+        "tb": 2,
+
+        "lch": [],
+
+        "bch": [],
+
+        "hc": []
+
+      },
+
+      {
+
+        "name": "Blog.Infra.Repositories.PostRepository",
+
+        "rp": "#Blog.Infra!Blog.Infra.Repositories.PostRepository.html",
+
+        "cl": 9,
+
+        "ucl": 3,
+
+        "cal": 12,
+
+        "tl": 27,
+
+        "ct": "LineCoverage",
+
+        "mc": "-",
+
+        "cb": 0,
+
+        "tb": 0,
 
         "lch": [],
 
