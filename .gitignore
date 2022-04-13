@@ -11,3 +11,5 @@ Blog.Application/obj
 Blog.Application/bin
 Blog.Infra/obj
 Blog.Infra/bin
+Blog.Domain/obj
+Blog.Domain/bin
