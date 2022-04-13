@@ -6,6 +6,17 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Remove="wwwroot\uploadsCsv\pessoas.csv" />
+    <Content Remove="wwwroot\uploadsCsv\pessoas_2.csv" />
+    <Content Remove="wwwroot\uploadsImgs\CI000450011.jfif" />
+    <Content Remove="wwwroot\uploadsImgs\CI000450018.jfif" />
+    <Content Remove="wwwroot\uploadsImgs\img1.jfif" />
+    <Content Remove="wwwroot\uploadsImgs\img2.jfif" />
+    <Content Remove="wwwroot\uploadsImgs\img3.jpg" />
+    <Content Remove="wwwroot\uploadsImgs\luxo.jpg" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
