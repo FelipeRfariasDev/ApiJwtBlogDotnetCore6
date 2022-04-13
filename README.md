@@ -48,6 +48,14 @@ A API deve implementar os seguintes verbos e endpoint:
 
 ![alt text](https://github.com/FelipeRfariasDev/ApiJwtBlogDotnetCore6/blob/main/Documenta%C3%A7%C3%A3o/postman/add-postman-email-img-upload.png?raw=true)
 
+Atualizar via postmam e recebimento do email com upload da imagem
+
+![alt text](https://github.com/FelipeRfariasDev/ApiJwtBlogDotnetCore6/blob/main/Documenta%C3%A7%C3%A3o/postman/put-postman.png?raw=true)
+
+![alt text](https://github.com/FelipeRfariasDev/ApiJwtBlogDotnetCore6/blob/main/Documenta%C3%A7%C3%A3o/postman/put-postman-email.png?raw=true)
+
+![alt text](https://github.com/FelipeRfariasDev/ApiJwtBlogDotnetCore6/blob/main/Documenta%C3%A7%C3%A3o/postman/put-postman-email-img-upload.png?raw=true)
+
 
 ## Swagger
 
