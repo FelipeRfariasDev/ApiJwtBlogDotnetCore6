@@ -1,8 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+
+#nullable disable
 
 namespace Blog.Infra.Migrations
 {
-    public partial class Blog : Migration
+    public partial class api : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
