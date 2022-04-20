@@ -1,8 +1,6 @@
-﻿using AutoMapper;
-using Blog.Application.AppServices;
+﻿using Blog.Application.AppServices;
 using Blog.Application.Interfaces;
 using Blog.Application.ViewModels;
-using Blog.Domain.Entities;
 using Blog.Domain.NotMapped;
 using Blog.Infra.Context;
 using Microsoft.AspNetCore.Authorization;
