@@ -26,6 +26,10 @@ builder.Services.AddIdentityConfig(builder.Configuration);
 
 builder.Services.AddScoped<IPostAppService, PostAppService>();
 builder.Services.AddScoped<IPostRepository, PostRepository>();
+builder.Services.AddScoped<IArquivoAppService, ArquivoAppService>();
+builder.Services.AddScoped<IArquivoRepository, ArquivoRepository>();
+builder.Services.AddScoped<IItemAppService, ItemAppService>();
+builder.Services.AddScoped<IItemRepository, ItemRepository>();
 
 var app = builder.Build();
 
