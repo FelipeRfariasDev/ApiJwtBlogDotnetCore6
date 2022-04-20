@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 
 namespace ApiJwtBlogDotnetCore6.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("[controller]")]
     public class PostsController : Controller
@@ -20,15 +20,13 @@ namespace ApiJwtBlogDotnetCore6.Controllers
         AutenticacaoContext applicationDbContext;
         IWebHostEnvironment _hostingEnvironment;
         IHttpContextAccessor _httpContextAccessor;
-        IMapper _mapper;
         IPostAppService _postAppService;
 
-        public PostsController(IWebHostEnvironment hostEnvironment, IHttpContextAccessor iHttpContextAccessor, IMapper mapper, IPostAppService postAppService)
+        public PostsController(IWebHostEnvironment hostEnvironment, IHttpContextAccessor iHttpContextAccessor, IPostAppService postAppService)
         {
             applicationDbContext = new AutenticacaoContext(new DbContextOptions<AutenticacaoContext>());
             this._hostingEnvironment = hostEnvironment;
             this._httpContextAccessor = iHttpContextAccessor;
-            this._mapper = mapper;
             this._postAppService = postAppService;
         }
 
@@ -88,35 +86,11 @@ namespace ApiJwtBlogDotnetCore6.Controllers
         {
             try
             {
-                string uploadsImgs = "uploadsImgs";
-                string uploads = Path.Combine(this._hostingEnvironment.WebRootPath, uploadsImgs);
-                if (postsViewModel.Imagem.Length > 0)
-                {
-                    string filePath = Path.Combine(uploads, postsViewModel.Imagem.FileName);
-                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await postsViewModel.Imagem.CopyToAsync(fileStream);
-                    }
-                    string host = this._httpContextAccessor.HttpContext.Request.Host.Value;
-
-                    string ImgUrl = "https://" + host + "/" + uploadsImgs + "/";
-                    postsViewModel.ImagemUrl = ImgUrl + postsViewModel.Imagem.FileName;
-                }
-                DateTime DataCadastro = DateTime.Now;
-                postsViewModel.DataCadastro = DataCadastro;
-                /* Exemplo sem utilizar o mapper
-                var post = new Posts { Titulo = postsViewModel.Titulo, Descricao = postsViewModel.Descricao, DataCadastro = postsViewModel.DataCadastro, ImagemUrl = postsViewModel.ImagemUrl };
-                */
-
-                //Exemplo com o mapper
-                var post = this._mapper.Map<Posts>(postsViewModel);
-
-                applicationDbContext.Posts.Add(post);
-                applicationDbContext.SaveChanges();
-
+                string host = this._httpContextAccessor.HttpContext.Request.Host.Value;
+                string uploads = Path.Combine(this._hostingEnvironment.WebRootPath, "uploadsImgs");
+                var post = await _postAppService.Insert(postsViewModel, uploads, host);
                 
                 var emailServices = new EmailServices();
-
                 var body = emailServices.GetEmailBody(postsViewModel);
                 var email = new Email();
                 email.To = new List<EmailAddress>();
@@ -129,7 +103,7 @@ namespace ApiJwtBlogDotnetCore6.Controllers
                     message = "Cadastrado com sucesso",
                     post = post
                 };
-
+                //,new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore }
                 return Ok(JsonConvert.SerializeObject(retorno));
             }
             catch (Exception ex)
@@ -169,10 +143,10 @@ namespace ApiJwtBlogDotnetCore6.Controllers
                 */
 
                 //Exemplo com o mapper
-                var post = this._mapper.Map<Posts>(postsViewModel);
+                //var post = this._mapper.Map<Posts>(postsViewModel);
 
-                applicationDbContext.Posts.Update(post);
-                applicationDbContext.SaveChanges();
+                //applicationDbContext.Posts.Update(post);
+                //applicationDbContext.SaveChanges();
 
 
                 var emailServices = new EmailServices();
@@ -187,7 +161,7 @@ namespace ApiJwtBlogDotnetCore6.Controllers
                 {
                     success = true,
                     message = "Atualizado com sucesso",
-                    post = post
+                    //post = post
                 };
 
                 return Ok(JsonConvert.SerializeObject(retorno));

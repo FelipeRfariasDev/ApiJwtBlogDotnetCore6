@@ -2,7 +2,7 @@
 using Blog.Application.ViewModels;
 using Blog.Domain.Entities;
 
-namespace ApiJwtBlogDotnetCore6.AutoMapper
+namespace Blog.Application.AutoMapper
 {
     public class AutoMapperProfile:Profile
     {

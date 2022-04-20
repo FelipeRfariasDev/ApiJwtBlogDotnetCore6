@@ -6,5 +6,6 @@ namespace Blog.Infra.Interfaces
     {
         Posts GetById(int id);
         bool Delete(Posts posts);
+        Posts Insert(Posts post);
     }
 }

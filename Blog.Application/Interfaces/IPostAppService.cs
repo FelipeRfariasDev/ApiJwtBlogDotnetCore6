@@ -1,4 +1,5 @@
-﻿using Blog.Domain.Entities;
+﻿using Blog.Application.ViewModels;
+using Blog.Domain.Entities;
 
 namespace Blog.Application.Interfaces
 {
@@ -7,5 +8,6 @@ namespace Blog.Application.Interfaces
         Posts GetById(int id);
 
         bool Delete(int id);
+        Task<Posts> Insert(PostsViewModel postsViewModel, string uploads, string host);
     }
 }

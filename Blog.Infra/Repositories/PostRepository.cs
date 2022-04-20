@@ -4,7 +4,7 @@ using Blog.Infra.Interfaces;
 
 namespace Blog.Infra.Repositories
 {
-    public class PostRepository: IPostRepository
+    public class PostRepository : IPostRepository
     {
         AutenticacaoContext _context;
         public PostRepository(AutenticacaoContext context)
@@ -24,11 +24,12 @@ namespace Blog.Infra.Repositories
             return _context.Posts.Find(id);
         }
 
-        public bool Insert(Posts post) 
+        public Posts Insert(Posts post)
         {
+            //post.Id = 0;
             _context.Posts.Add(post);
-            int rowsAffected = _context.SaveChanges();
-            return rowsAffected > 0;
+            _context.SaveChanges();
+            return post;
         }
     }
 }
