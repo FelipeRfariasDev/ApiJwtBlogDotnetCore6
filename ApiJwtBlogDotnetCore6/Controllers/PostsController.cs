@@ -206,22 +206,19 @@ namespace ApiJwtBlogDotnetCore6.Controllers
 
         [HttpDelete]
         [Route("/Posts/{id}")]
-        public ActionResult Delete([FromRoute] int Id)
+        public ActionResult Delete([FromRoute] int id)
         {
             try
             {
-                var posts = applicationDbContext.Posts.Find(Id);
-                if (posts == null)
-                {
-                    return BadRequest("post id " + Id + " não encontrado");
-                }
-                applicationDbContext.Posts.Remove(posts);
-                applicationDbContext.SaveChanges();
-                return Ok("post id " + Id + " removido com sucesso");
+                var deletadoComSucesso = _postAppService.Delete(id);
+                if (!deletadoComSucesso)
+                    return BadRequest("Erro ao realizar exclusão");
+
+                return Ok("post id " + id + " removido com sucesso");
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
     }

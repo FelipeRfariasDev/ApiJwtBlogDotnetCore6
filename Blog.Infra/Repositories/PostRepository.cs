@@ -12,6 +12,13 @@ namespace Blog.Infra.Repositories
             _context = context;
         }
 
+        public bool Delete(Posts posts)
+        {
+            _context.Remove(posts);
+            int rowsAffected = _context.SaveChanges();
+            return rowsAffected > 0;
+        }
+
         public Posts GetById(int id)
         {
             return _context.Posts.Find(id);
